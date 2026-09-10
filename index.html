@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Flutter / Dart — Lab Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg:        #080c12;
+  --bg2:       #0c1018;
+  --panel:     #111722;
+  --panel2:    #161e2c;
+  --panel3:    #1b2535;
+  --border:    #1f2d40;
+  --border2:   #283a52;
+  --text:      #dde4ee;
+  --muted:     #8a9bb5;
+  --dim:       #506070;
+  --blue:      #54c5f8;
+  --blue2:     #029fdf;
+  --dart:      #00d4c8;
+  --dart2:     #00a89e;
+  --accent:    #ffca28;
+  --green:     #4ade80;
+  --red:       #f87171;
+  --purple:    #c084fc;
+  --code-bg:   #0a1018;
+  --code-border:#1d2d3e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',-apple-system,sans-serif;
+  font-size:15px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(circle at 10% 0%,rgba(84,197,248,.06),transparent 45%),
+    radial-gradient(circle at 90% 100%,rgba(0,212,200,.05),transparent 45%);
+  min-height:100vh;
+}
+code,pre{font-family:'JetBrains Mono',monospace}
+
+/* ── HEADER ── */
+.site-header{
+  background:rgba(8,12,18,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+  padding:0 32px;
+  display:flex;align-items:center;gap:20px;
+  height:60px;
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;flex-shrink:0;
+}
+.logo-icon{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--blue),var(--dart));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:15px;color:#080c12;
+  box-shadow:0 0 18px rgba(84,197,248,.35);
+}
+.logo-text{font-weight:800;font-size:16px;letter-spacing:-.02em;color:var(--text)}
+.logo-sub{color:var(--muted);font-size:11px;margin-left:2px}
+
+.course-badge{
+  margin-left:auto;
+  background:var(--panel2);
+  border:1px solid var(--border2);
+  border-radius:6px;
+  padding:4px 12px;
+  font-size:11px;
+  color:var(--muted);
+  font-weight:600;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+/* ── TABS ── */
+.tabs-bar{
+  display:flex;gap:4px;
+  padding:20px 32px 0;
+  border-bottom:1px solid var(--border);
+  background:var(--bg2);
+}
+.tab-btn{
+  padding:10px 22px;
+  border:none;background:none;
+  color:var(--muted);
+  font-family:'Inter',sans-serif;
+  font-size:13px;font-weight:600;
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  transition:all .18s;
+  border-radius:4px 4px 0 0;
+  letter-spacing:.01em;
+  position:relative;bottom:-1px;
+}
+.tab-btn:hover{color:var(--text);background:var(--panel)}
+.tab-btn.active{
+  color:var(--blue);
+  border-bottom-color:var(--blue);
+  background:var(--panel);
+}
+
+/* ── CONTENT ── */
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+.page{max-width:860px;margin:0 auto;padding:48px 32px 100px}
+
+/* ── SECTION HEADERS ── */
+.lab-title{
+  display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,var(--blue),var(--dart));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  font-size:28px;font-weight:800;letter-spacing:-.03em;
+  margin-bottom:6px;
+}
+.lab-meta{color:var(--muted);font-size:13px;margin-bottom:40px}
+.lab-meta span{color:var(--blue);font-weight:600}
+
+h2{
+  font-size:20px;font-weight:700;letter-spacing:-.02em;
+  color:var(--text);
+  margin:40px 0 12px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+h2 .h-tag{
+  font-size:10px;font-weight:700;
+  background:var(--panel2);
+  border:1px solid var(--border2);
+  color:var(--blue);
+  border-radius:4px;padding:2px 7px;
+  font-family:'JetBrains Mono',monospace;
+  letter-spacing:.05em;
+}
+h3{
+  font-size:15px;font-weight:700;
+  color:var(--blue);
+  margin:24px 0 8px;
+  display:flex;align-items:center;gap:8px;
+}
+h3::before{
+  content:'';width:3px;height:16px;
+  background:linear-gradient(var(--blue),var(--dart));
+  border-radius:2px;display:block;
+}
+
+p{color:var(--text);margin-bottom:10px}
+p + p{margin-top:4px}
+
+/* ── DEFINITION BOX ── */
+.def-box{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-left:3px solid var(--blue);
+  border-radius:0 8px 8px 0;
+  padding:16px 20px;
+  margin:16px 0;
+  color:var(--text);
+  font-size:14px;
+  line-height:1.75;
+}
+.def-box strong{color:var(--blue)}
+
+/* ── INFO / NOTE / WARN ── */
+.note{
+  background:rgba(84,197,248,.07);
+  border:1px solid rgba(84,197,248,.2);
+  border-radius:8px;
+  padding:14px 18px;
+  margin:16px 0;
+  font-size:13.5px;
+  color:var(--text);
+}
+.note .note-label{
+  font-weight:700;color:var(--blue);
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  display:block;margin-bottom:4px;
+}
+.warn{
+  background:rgba(255,202,40,.06);
+  border:1px solid rgba(255,202,40,.2);
+  border-radius:8px;
+  padding:14px 18px;
+  margin:16px 0;
+  font-size:13.5px;
+}
+.warn .note-label{color:var(--accent)}
+.ok{
+  background:rgba(74,222,128,.06);
+  border:1px solid rgba(74,222,128,.2);
+  border-radius:8px;
+  padding:14px 18px;
+  margin:16px 0;
+  font-size:13.5px;
+}
+.ok .note-label{color:var(--green)}
+
+/* ── CODE ── */
+pre{
+  background:var(--code-bg);
+  border:1px solid var(--code-border);
+  border-radius:10px;
+  padding:18px 20px;
+  overflow-x:auto;
+  margin:14px 0;
+  font-size:13px;
+  line-height:1.65;
+  color:#c8d8ec;
+  position:relative;
+}
+pre .lang{
+  position:absolute;top:10px;right:14px;
+  font-size:10px;color:var(--dim);
+  font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+}
+.kw{color:#54c5f8}
+.kw2{color:#c084fc}
+.str{color:#4ade80}
+.num{color:#ffca28}
+.cmt{color:#4a6070;font-style:italic}
+.fn{color:#00d4c8}
+.type{color:#f9a8d4}
+
+/* ── INLINE CODE ── */
+code:not(pre code){
+  background:var(--panel2);
+  border:1px solid var(--border2);
+  border-radius:4px;
+  padding:1px 6px;
+  font-size:12.5px;
+  color:var(--dart);
+}
+
+/* ── LISTS ── */
+ul,ol{padding-left:20px;margin:8px 0 14px}
+li{margin-bottom:6px;color:var(--text);font-size:14px}
+li strong{color:var(--blue)}
+
+/* ── TABLES ── */
+.tbl-wrap{overflow-x:auto;margin:16px 0}
+table{
+  width:100%;border-collapse:collapse;
+  font-size:13.5px;
+}
+th{
+  background:var(--panel2);
+  color:var(--blue);
+  font-weight:700;
+  padding:11px 16px;
+  text-align:left;
+  border:1px solid var(--border2);
+  font-size:12px;text-transform:uppercase;letter-spacing:.05em;
+}
+td{
+  padding:10px 16px;
+  border:1px solid var(--border);
+  color:var(--text);
+  vertical-align:top;
+}
+tr:nth-child(even) td{background:var(--panel)}
+td code{background:var(--panel3);border:none;color:var(--dart)}
+
+/* ── OPERATOR SYMBOL ── */
+.sym{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;
+  color:var(--accent);
+  font-size:15px;
+}
+
+/* ── CARDS GRID ── */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0}
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:16px 18px;
+  transition:border-color .2s,transform .2s;
+}
+.card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.card-icon{font-size:22px;margin-bottom:8px}
+.card-title{font-weight:700;font-size:13px;color:var(--text);margin-bottom:4px}
+.card-desc{font-size:12px;color:var(--muted);line-height:1.55}
+
+/* ── TWO-COL ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+@media(max-width:600px){.two-col{grid-template-columns:1fr}}
+
+/* ── KEYWORD CHIPS ── */
+.chip-group{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
+.chip{
+  background:var(--panel2);
+  border:1px solid var(--border2);
+  border-radius:5px;
+  padding:3px 10px;
+  font-size:12px;
+  font-family:'JetBrains Mono',monospace;
+  color:var(--dart);
+}
+
+/* ── STEPS ── */
+.steps{counter-reset:step;margin:14px 0}
+.step{
+  display:flex;gap:14px;
+  margin-bottom:14px;
+  align-items:flex-start;
+}
+.step-num{
+  flex-shrink:0;
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue2),var(--dart2));
+  color:#080c12;font-weight:800;font-size:12px;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:2px;
+}
+.step-body{font-size:14px;color:var(--text)}
+.step-body strong{color:var(--blue)}
+
+/* ── VALIDITY TABLE ── */
+.valid{color:var(--green);font-weight:700}
+.invalid{color:var(--red);font-weight:700}
+
+/* ── PRACTICE BOX ── */
+.practice{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-top:3px solid var(--accent);
+  border-radius:0 0 10px 10px;
+  padding:20px 24px;
+  margin:28px 0;
+}
+.practice-title{
+  font-size:13px;font-weight:800;color:var(--accent);
+  text-transform:uppercase;letter-spacing:.07em;
+  margin-bottom:14px;
+}
+.practice ol{padding-left:18px}
+.practice li{font-size:13.5px;color:var(--muted);margin-bottom:8px}
+
+/* ── DIVIDER ── */
+.divider{
+  height:1px;background:var(--border);
+  margin:36px 0;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--muted)}
+
+/* ── HIGHLIGHT SPAN ── */
+.hl-blue{color:var(--blue);font-weight:600}
+.hl-dart{color:var(--dart);font-weight:600}
+.hl-green{color:var(--green);font-weight:600}
+.hl-red{color:var(--red);font-weight:600}
+.hl-acc{color:var(--accent);font-weight:600}
+
+/* ── COMPARISON CARD ── */
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+@media(max-width:560px){.cmp-grid{grid-template-columns:1fr}}
+.cmp-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:18px;
+}
+.cmp-card h4{font-size:14px;font-weight:700;margin-bottom:10px}
+.cmp-card.blue{border-top:3px solid var(--blue)}
+.cmp-card.blue h4{color:var(--blue)}
+.cmp-card.dart{border-top:3px solid var(--dart)}
+.cmp-card.dart h4{color:var(--dart)}
+.cmp-card.acc{border-top:3px solid var(--accent)}
+.cmp-card.acc h4{color:var(--accent)}
+.cmp-card ul{padding-left:16px}
+.cmp-card li{font-size:13px;color:var(--muted);margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo">
+    <div class="logo-icon">F</div>
+    <div>
+      <div class="logo-text">Flutter<span class="logo-sub"> &amp; Dart</span></div>
+    </div>
+  </div>
+  <div class="course-badge">Mobile App Dev &nbsp;|&nbsp; UOL</div>
+</header>
+
+<!-- TABS -->
+<div class="tabs-bar">
+  <button class="tab-btn active" onclick="switchTab('lab1',this)">Lab 1 &mdash; Intro &amp; Setup</button>
+  <button class="tab-btn" onclick="switchTab('lab2',this)">Lab 2 &mdash; Variables &amp; Operators</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!--  LAB 1                                             -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="lab1" class="tab-content active">
+<div class="page">
+
+  <div class="lab-title">Introduction to Flutter</div>
+  <p class="lab-meta">Mobile Application Development &nbsp;&bull;&nbsp; <span>Lab #1</span> &nbsp;&bull;&nbsp; Department of Technology &nbsp;&bull;&nbsp; The University of Lahore</p>
+
+  <!-- ── What is Flutter ── -->
+  <h2><span class="h-tag">01</span> What is Flutter?</h2>
+
+  <div class="def-box">
+    Flutter is a <strong>tool</strong> that allows you to build <strong>Native Cross-Platform</strong> (iOS, Android) apps using one Programming Language and one Codebase.
+  </div>
+
+  <p>More formally, Flutter is Google's <strong>open-source UI toolkit</strong> for building beautiful, natively compiled applications for <strong>mobile, web, desktop, and embedded devices</strong> from a single codebase.</p>
+
+  <div class="two-col">
+    <div class="cmp-card blue">
+      <h4>Native</h4>
+      <ul>
+        <li>Built with platform-specific languages &mdash; Swift for iOS, Java/Kotlin for Android</li>
+        <li>Tight integration with platform hardware &amp; features</li>
+        <li>Smooth performance and full device capability access</li>
+      </ul>
+    </div>
+    <div class="cmp-card dart">
+      <h4>Cross-Platform</h4>
+      <ul>
+        <li>One codebase runs on multiple platforms</li>
+        <li>Saves time &amp; resources</li>
+        <li>Flutter uses Dart, compiled to native code for each platform</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <span class="note-label">In Easy Words</span>
+    Flutter is like a <strong>Universal Charger</strong> &mdash; one thing that works everywhere. It acts as a <strong>translator</strong> that knows Java/Kotlin (Android) and Swift (iOS), so you write once in Dart and it speaks to both.
+  </div>
+
+  <h3>Programming Language vs Codebase</h3>
+  <div class="two-col">
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px">
+      <p style="font-weight:700;color:var(--blue);margin-bottom:6px;font-size:13px">Programming Language</p>
+      <p style="font-size:13px;color:var(--muted)">The set of rules you use to tell the computer what to build. Like specific instructions: "Dig a moat here, build a tall tower there." It's the language the computer understands.</p>
+    </div>
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px">
+      <p style="font-weight:700;color:var(--dart);margin-bottom:6px;font-size:13px">Codebase</p>
+      <p style="font-size:13px;color:var(--muted)">Your entire plan &mdash; like a kitchen book with all recipes. It holds all the code for your app in one place, organized in order.</p>
+    </div>
+  </div>
+
+  <!-- ── Major Components ── -->
+  <h2><span class="h-tag">02</span> Major Components of Flutter</h2>
+  <p>Flutter = two major things:</p>
+
+  <div class="two-col" style="margin-top:14px">
+    <div class="cmp-card blue">
+      <h4>Flutter SDK</h4>
+      <ul>
+        <li>Collection of tools to build apps for Android &amp; iOS in one codebase</li>
+        <li>Set of instructions that aid application development</li>
+        <li>Includes tools for converting Dart code to native machine code</li>
+        <li>Works for both iOS and Android</li>
+      </ul>
+    </div>
+    <div class="cmp-card dart">
+      <h4>Flutter Framework</h4>
+      <ul>
+        <li>Provides predefined widgets &amp; widget library</li>
+        <li>Utility functions &amp; packages</li>
+        <li>Set of reusable UI components (buttons, text inputs, sliders, etc.)</li>
+        <li>Components can be customized according to purpose</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── Dart Language ── -->
+  <h2><span class="h-tag">03</span> Introduction to Dart Programming Language</h2>
+
+  <div class="def-box">
+    Dart is a programming language created by <strong>Google</strong>, specifically for building web, mobile, and desktop apps. Best real-world example of a Dart application: <strong>Gmail</strong>.
+  </div>
+
+  <h3>Key Features of Dart</h3>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🧩</div>
+      <div class="card-title">Object-Oriented</div>
+      <div class="card-desc">Organizes code into reusable objects, making it structured and maintainable.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔒</div>
+      <div class="card-title">Type-Safe</div>
+      <div class="card-desc">Ensures data types are compatible, preventing errors and making code more reliable.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <div class="card-title">Fast &amp; Performant</div>
+      <div class="card-desc">Compiles to native code, resulting in efficient apps that run smoothly.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">✍️</div>
+      <div class="card-title">Concise Syntax</div>
+      <div class="card-desc">Easy to read and write, with clean and straightforward code.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">♻️</div>
+      <div class="card-title">Hot Reload</div>
+      <div class="card-desc">See changes instantly in running apps during development, saving time and effort.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📦</div>
+      <div class="card-title">Rich Ecosystem</div>
+      <div class="card-desc">Wide range of pre-built packages for various tasks, expanding functionality.</div>
+    </div>
+  </div>
+
+  <h3>Flutter vs Dart &mdash; How They Relate</h3>
+  <div class="note">
+    <span class="note-label">Relationship</span>
+    <strong>Dart</strong> is the programming language. <strong>Flutter</strong> is the framework built on top of Dart. Flutter consists of the <em>Flutter Framework</em> (UI widgets) and the <em>Flutter SDK</em> (tooling) &mdash; both powered by Dart underneath.
+  </div>
+
+  <!-- ── Environment Setup ── -->
+  <h2><span class="h-tag">04</span> Dart Environment Setup</h2>
+  <p>Follow these steps to set up Dart on Windows:</p>
+
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body">Install the Dart SDK from the official website (<strong>dart.dev/get-archive</strong>) or use the community Windows installer. Choose the <strong>Stable channel</strong> x64 version.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body">Download the <strong>64-bit</strong> version of the SDK for your OS.</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body">Extract the ZIP file and place the <code>dart-sdk</code> folder on any drive <strong>other than C:</strong> (e.g., <code>D:\Dart SDK\dart-sdk</code>).</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body">Open the <code>dart-sdk\bin</code> folder and <strong>copy the full path</strong> from the address bar.</div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body">Search <strong>ENV</strong> in the Windows search bar and open <em>Edit the system environment variables</em>.</div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-body">In System Properties, click <strong>Environment Variables</strong>.</div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-body">In the Environment Variables window, find the <strong>Path</strong> variable under User variables and click <strong>Edit</strong>.</div></div>
+    <div class="step"><div class="step-num">8</div><div class="step-body">In the Edit Environment Variable window, click <strong>New</strong>.</div></div>
+    <div class="step"><div class="step-num">9</div><div class="step-body">Paste the path you copied in Step 4 and click <strong>OK</strong>.</div></div>
+    <div class="step"><div class="step-num">10</div><div class="step-body">Open <strong>Command Prompt</strong> and type <code>dart</code> then press Enter. If you see Dart usage info, the environment is set correctly.</div></div>
+  </div>
+
+  <div class="warn">
+    <span class="note-label">Important Note</span>
+    If typing <code>dart</code> in CMD doesn't work after closing and reopening CMD, it doesn't mean your environment is broken. Navigate to the <code>bin</code> folder manually using CMD commands and type <code>dart</code> from there.
+  </div>
+
+  <!-- ── IDE Setup ── -->
+  <h2><span class="h-tag">05</span> Configure a Text Editor / IDE</h2>
+
+  <div class="cmp-grid">
+    <div class="cmp-card blue">
+      <h4>For Beginners</h4>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Two recommended options:</p>
+      <ul>
+        <li><strong style="color:var(--blue)">Dart Pad</strong> &mdash; Free, web-based, no setup needed. Lacks debugging and auto-complete.</li>
+        <li><strong style="color:var(--blue)">VS Code + Dart Plugin</strong> &mdash; Lightweight, free, large community. Great syntax highlighting, code completion, and basic debugging.</li>
+      </ul>
+    </div>
+    <div class="cmp-card acc">
+      <h4>For Advanced Learners</h4>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px">More powerful options:</p>
+      <ul>
+        <li><strong style="color:var(--accent)">Android Studio</strong> &mdash; Official Flutter IDE. Advanced debugging, code analysis, refactoring. Resource-intensive.</li>
+        <li><strong style="color:var(--accent)">IntelliJ IDEA (Community)</strong> &mdash; Excellent Dart support, highly customizable. Free edition has some limitations.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>VS Code Setup &mdash; Step by Step</h3>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Download VS Code</strong> from code.visualstudio.com. Choose the installer for your OS (Windows/macOS/Linux) and run it.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Install Dart Plugin</strong>: Open VS Code → Extensions (Ctrl+Shift+X) → Search "Dart" → Install the extension by "Dart Code".</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Verify Dart SDK</strong>: Open Command Palette (Ctrl+Shift+P) → Search and run <code>Flutter: Doctor</code>. This checks if Dart SDK is installed and path is set correctly.</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>(Optional) Additional Extensions</strong>: Install <em>Error Lens</em> (inline errors) and <em>Rainbow Brackets</em> (visual nesting).</div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body"><strong>(Optional) Create First Project</strong>: Command Palette → <code>Dart: New Project</code> → Select "Console Application" → Follow prompts.</div></div>
+  </div>
+
+  <!-- ── First Code ── -->
+  <h2><span class="h-tag">06</span> First Code in Dart</h2>
+
+  <p>In Dart, <code>main()</code> is a predefined method that acts as the <strong>entry point</strong> of the application. Every Dart program must have a <code>main()</code> function.</p>
+
+  <pre><span class="fn">main</span>() {
+  <span class="fn">print</span>(<span class="str">"Welcome to Pakistan"</span>);
+}<span class="lang">DART</span></pre>
+
+  <!-- ── Comments ── -->
+  <h2><span class="h-tag">07</span> Dart Comments</h2>
+
+  <p>Comments are statements <strong>not executed</strong> by the compiler. They provide documentation and improve code readability for you and other programmers.</p>
+
+  <h3>1. Single Line Comment</h3>
+  <p>Starts with <code>//</code> &mdash; comments out everything until the end of that line.</p>
+  <pre><span class="fn">int</span> <span class="fn">main</span>() {
+  <span class="kw">double</span> area = <span class="num">3.14</span> * <span class="num">4</span> * <span class="num">4</span>;
+  <span class="cmt">// It prints the area</span>
+  <span class="cmt">// of a circle of radius = 4</span>
+  <span class="fn">print</span>(area);
+  <span class="kw">return</span> <span class="num">0</span>;
+}<span class="lang">DART</span></pre>
+
+  <h3>2. Multi-Line Comment</h3>
+  <p>Starts with <code>/*</code> and ends with <code>*/</code> &mdash; comments out an entire block of code.</p>
+  <pre><span class="fn">int</span> <span class="fn">main</span>() {
+  <span class="kw">double</span> area = <span class="num">3.14</span> * <span class="num">4</span> * <span class="num">4</span>;
+  <span class="cmt">/* It prints the area
+     of a circle of radius = 4 */</span>
+  <span class="fn">print</span>(area);
+  <span class="kw">return</span> <span class="num">0</span>;
+}<span class="lang">DART</span></pre>
+
+  <h3>3. Documentation Comment</h3>
+  <p>Uses <code>///</code> syntax. Special comments used to generate documentation from the code. Can be associated with classes, methods, functions, and variables. Once written, Dart reuses them automatically.</p>
+  <pre><span class="cmt">/// Calculates the sum of two numbers.</span>
+<span class="cmt">///</span>
+<span class="cmt">/// [a] and [b] are the numbers to be added.</span>
+<span class="cmt">///</span>
+<span class="cmt">/// Returns the sum of [a] and [b].</span>
+<span class="kw">int</span> <span class="fn">sum</span>(<span class="kw">int</span> a, <span class="kw">int</span> b) {
+  <span class="kw">return</span> a + b;
+}<span class="lang">DART</span></pre>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Type</th><th>Syntax</th><th>Use Case</th></tr></thead>
+      <tbody>
+        <tr><td>Single Line</td><td><code>// comment</code></td><td>Quick notes on a single line</td></tr>
+        <tr><td>Multi-Line</td><td><code>/* comment */</code></td><td>Block of code explanation</td></tr>
+        <tr><td>Documentation</td><td><code>/// comment</code></td><td>Auto-generate API docs</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div><!-- /lab1 -->
+
+<!-- ══════════════════════════════════════════════════ -->
+<!--  LAB 2                                             -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="lab2" class="tab-content">
+<div class="page">
+
+  <div class="lab-title">Variables &amp; Operators</div>
+  <p class="lab-meta">Mobile Application Development &nbsp;&bull;&nbsp; <span>Lab #2 &amp; 3</span> &nbsp;&bull;&nbsp; Department of Technology &nbsp;&bull;&nbsp; The University of Lahore</p>
+
+  <!-- ── Variables ── -->
+  <h2><span class="h-tag">01</span> What is a Variable?</h2>
+
+  <div class="def-box">
+    A variable is a <strong>named storage location</strong> that holds a value. Think of it as a container or a box where you can store information. Variables are used to store and manipulate data in your Dart programs.
+  </div>
+
+  <h3>Syntax</h3>
+  <pre><span class="type">type</span> variable_name;           <span class="cmt">// single variable</span>
+<span class="type">type</span> variable1, variable2, variable3;  <span class="cmt">// multiple variables of same type</span><span class="lang">DART</span></pre>
+
+  <h3>Data Types</h3>
+  <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(140px,1fr))">
+    <div class="card"><div class="card-title" style="font-family:monospace;color:var(--blue)">int</div><div class="card-desc">Whole numbers e.g. 8, -3, 100</div></div>
+    <div class="card"><div class="card-title" style="font-family:monospace;color:var(--blue)">double</div><div class="card-desc">Decimal numbers e.g. 9.9, 3.14</div></div>
+    <div class="card"><div class="card-title" style="font-family:monospace;color:var(--blue)">String</div><div class="card-desc">Text values e.g. 'Hello'</div></div>
+    <div class="card"><div class="card-title" style="font-family:monospace;color:var(--blue)">bool</div><div class="card-desc">true or false only</div></div>
+    <div class="card"><div class="card-title" style="font-family:monospace;color:var(--blue)">List</div><div class="card-desc">Ordered collection of values</div></div>
+    <div class="card"><div class="card-title" style="font-family:monospace;color:var(--blue)">Map</div><div class="card-desc">Key-value pairs</div></div>
+  </div>
+
+  <h3>Example</h3>
+  <pre><span class="fn">int</span> <span class="fn">main</span>() {
+  <span class="type">String</span> txt;
+  txt = <span class="str">'First Variable'</span>;
+  <span class="fn">print</span>(txt);
+
+  <span class="kw">int</span> t = <span class="num">8</span>;
+  <span class="fn">print</span>(t);
+
+  <span class="kw">double</span> d = <span class="num">8</span>;
+  <span class="fn">print</span>(d);
+
+  <span class="kw">bool</span> b = <span class="kw2">false</span>;
+  <span class="fn">print</span>(b);
+
+  <span class="kw">return</span> <span class="num">0</span>;
+}<span class="lang">DART</span></pre>
+
+  <!-- ── Keywords ── -->
+  <h2><span class="h-tag">02</span> Keywords in Dart</h2>
+  <p>Keywords are <strong>reserved words</strong> that cannot be used as variable names or identifiers because their function is predefined in Dart.</p>
+
+  <h3>Control Flow</h3>
+  <div class="chip-group">
+    <span class="chip">if</span><span class="chip">else</span><span class="chip">switch</span><span class="chip">case</span><span class="chip">break</span><span class="chip">continue</span><span class="chip">return</span><span class="chip">while</span><span class="chip">do</span><span class="chip">for</span><span class="chip">in</span><span class="chip">await</span><span class="chip">yield</span>
+  </div>
+
+  <h3>Function &amp; Class Declaration</h3>
+  <div class="chip-group">
+    <span class="chip">abstract</span><span class="chip">class</span><span class="chip">const</span><span class="chip">final</span><span class="chip">dynamic</span><span class="chip">extends</span><span class="chip">factory</span><span class="chip">get</span><span class="chip">implements</span><span class="chip">new</span><span class="chip">operator</span><span class="chip">set</span><span class="chip">static</span><span class="chip">super</span><span class="chip">this</span><span class="chip">typedef</span><span class="chip">var</span><span class="chip">void</span>
+  </div>
+
+  <h3>Error Handling</h3>
+  <div class="chip-group">
+    <span class="chip">assert</span><span class="chip">catch</span><span class="chip">finally</span><span class="chip">rethrow</span><span class="chip">throw</span><span class="chip">try</span>
+  </div>
+
+  <h3>Other Keywords</h3>
+  <div class="chip-group">
+    <span class="chip">as</span><span class="chip">is</span><span class="chip">part</span><span class="chip">required</span><span class="chip">show</span>
+  </div>
+
+  <h3>Limited Reserved Words (Async)</h3>
+  <div class="chip-group">
+    <span class="chip">async</span><span class="chip">sync*</span>
+  </div>
+
+  <!-- ── Name Restrictions ── -->
+  <h2><span class="h-tag">03</span> Variable Name Restrictions</h2>
+  <ol>
+    <li>Variable name / identifier <strong>cannot be a keyword</strong>.</li>
+    <li>Can contain <strong>alphabets and numbers</strong>.</li>
+    <li>Cannot contain <strong>spaces or special characters</strong>, except underscore <code>_</code> and dollar sign <code>$</code>.</li>
+    <li>Cannot <strong>begin with a number</strong>.</li>
+  </ol>
+
+  <div class="practice">
+    <div class="practice-title">Practice &mdash; Valid or Invalid?</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Declaration</th><th>Status</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><code>int age=1;</code></td><td class="valid">Valid</td><td>Correct int, no issues</td></tr>
+          <tr><td>2</td><td><code>int piValue=0;</code></td><td class="valid">Valid</td><td>Correct name and type</td></tr>
+          <tr><td>3</td><td><code>double dynamicVar=9.9;</code></td><td class="valid">Valid</td><td>Correct double, valid name</td></tr>
+          <tr><td>4</td><td><code>String numberOfMonthsInYear='Pakistan';</code></td><td class="valid">Valid</td><td>Long name is fine</td></tr>
+          <tr><td>5</td><td><code>bool numbers=false;</code></td><td class="valid">Valid</td><td>Correct bool</td></tr>
+          <tr><td>6</td><td><code>int 123abc=4;</code></td><td class="invalid">Invalid</td><td>Starts with a number</td></tr>
+          <tr><td>7</td><td><code>String my-variable='Hello';</code></td><td class="invalid">Invalid</td><td>Hyphen not allowed</td></tr>
+          <tr><td>8</td><td><code>bool const=false;</code></td><td class="invalid">Invalid</td><td><code>const</code> is a keyword</td></tr>
+          <tr><td>9</td><td><code>double new=5.3;</code></td><td class="invalid">Invalid</td><td><code>new</code> is a keyword</td></tr>
+          <tr><td>10</td><td><code>boool if=ture;</code></td><td class="invalid">Invalid</td><td>Wrong type + keyword name</td></tr>
+          <tr><td>11</td><td><code>String user_name='Zeeshan';</code></td><td class="valid">Valid</td><td>Underscore allowed</td></tr>
+          <tr><td>12</td><td><code>double totalAmount$=3.2;</code></td><td class="valid">Valid</td><td>Dollar sign allowed</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="note">
+    <span class="note-label">Important Note</span>
+    Dart supports <strong>type-checking</strong> &mdash; it verifies whether the data type and the data a variable holds are compatible.
+    <pre style="margin-top:10px"><span class="fn">int</span> <span class="fn">main</span>() {
+  <span class="kw">int</span> t = <span class="num">9</span>;
+  <span class="fn">print</span>(t <span class="kw">is</span> <span class="kw">int</span>);   <span class="cmt">// true</span>
+  <span class="fn">print</span>(t <span class="kw">is!</span> <span class="kw">int</span>);  <span class="cmt">// false</span>
+  <span class="kw">return</span> <span class="num">0</span>;
+}</pre>
+  </div>
+
+  <!-- ── Dynamic ── -->
+  <h2><span class="h-tag">04</span> Dynamic Type Variable</h2>
+  <p>The <code>dynamic</code> type can hold values of <strong>any type</strong> and its type can <strong>change at runtime</strong>. When you declare a variable as <code>dynamic</code>, Dart allows assigning different types during execution.</p>
+
+  <pre><span class="kw">dynamic</span> variable_name;  <span class="cmt">// syntax</span><span class="lang">DART</span></pre>
+
+  <pre><span class="fn">int</span> <span class="fn">main</span>() {
+  <span class="kw">dynamic</span> data = <span class="str">"Pakistan"</span>;  <span class="cmt">// String</span>
+  data = <span class="num">10</span>;                   <span class="cmt">// Integer — OK</span>
+  data = <span class="str">"Hello"</span>;              <span class="cmt">// String again — OK</span>
+  data = <span class="kw2">true</span>;                  <span class="cmt">// Boolean — OK</span>
+  <span class="fn">print</span>(data);
+  <span class="kw">return</span> <span class="num">0</span>;
+}<span class="lang">DART</span></pre>
+
+  <!-- ── var ── -->
+  <h2><span class="h-tag">05</span> VAR Type Variable</h2>
+  <p>The <code>var</code> keyword declares variables <strong>without explicitly specifying</strong> their type. Dart <strong>infers</strong> the type from the value assigned at initialization. It provides flexibility while maintaining static typing.</p>
+
+  <pre><span class="kw">var</span> variable_name;  <span class="cmt">// syntax</span><span class="lang">DART</span></pre>
+
+  <pre><span class="fn">int</span> <span class="fn">main</span>() {
+  <span class="kw">var</span> data;
+  data = <span class="num">2</span>;
+  data = <span class="str">"Hello Pakistan"</span>;
+  data = <span class="num">9.9</span>;
+  <span class="fn">print</span>(data);
+  <span class="kw">return</span> <span class="num">0</span>;
+}<span class="lang">DART</span></pre>
+
+  <div class="warn">
+    <span class="note-label">Important Points &mdash; dynamic vs var</span>
+    <ul style="margin-top:8px">
+      <li>If declared as <code>dynamic</code> &rarr; type can change <strong>anytime</strong> during execution.</li>
+      <li>If declared as <code>var</code> (without initialization) &rarr; type can change during execution.</li>
+      <li>If declared as <code>var</code> with a <code>double</code> value &rarr; type can only change to <code>int</code>.</li>
+      <li>If declared as <code>var</code> with an <code>int</code> or any fixed type &rarr; type <strong>cannot change</strong> to any other type.</li>
+    </ul>
+  </div>
+
+  <pre><span class="cmt">// var initialized with double — only int is acceptable after</span>
+<span class="fn">int</span> <span class="fn">main</span>() {
+  <span class="kw">var</span> data = <span class="num">9.3</span>;
+  data = <span class="num">2</span>;               <span class="cmt">// OK (int)</span>
+  data = <span class="str">"Hello Pakistan"</span>; <span class="cmt">// Error!</span>
+  data = <span class="num">9.9</span>;              <span class="cmt">// OK (double)</span>
+  data = <span class="kw2">false</span>;            <span class="cmt">// Error!</span>
+  data = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];       <span class="cmt">// Error!</span>
+  <span class="kw">return</span> <span class="num">0</span>;
+}<span class="lang">DART</span></pre>
+
+  <!-- ── final / const ── -->
+  <h2><span class="h-tag">06</span> Final &amp; Const Variables</h2>
+
+  <p><code>final</code> and <code>const</code> are keywords used to define <strong>constant variables</strong> in Dart. Once defined, their value <strong>cannot be changed</strong>. Both can be used with or without a data type.</p>
+
+  <div class="two-col">
+    <pre><span class="cmt">// Syntax for final</span>
+<span class="kw">final</span> variable_name
+<span class="kw">final</span> data_type variable_name<span class="lang">DART</span></pre>
+    <pre><span class="cmt">// Syntax for const</span>
+<span class="kw">const</span> variable_name
+<span class="kw">const</span> data_type variable_name<span class="lang">DART</span></pre>
+  </div>
+
+  <pre><span class="fn">int</span> <span class="fn">main</span>() {
+  <span class="kw">final</span> <span class="kw">int</span> t = <span class="num">9</span>;
+  <span class="fn">print</span>(t);
+  <span class="cmt">// t = 8;  ← Error! Cannot reassign final</span>
+
+  <span class="kw">const</span> <span class="kw">double</span> d = <span class="num">9.9</span>;
+  <span class="cmt">// d = 5.3;  ← Error! Cannot reassign const</span>
+  <span class="kw">return</span> <span class="num">0</span>;
+}<span class="lang">DART</span></pre>
+
+  <pre><span class="kw">final</span> <span class="kw">int</span> myFinalVariable = <span class="fn">calculateValue</span>();  <span class="cmt">// initialized at RUNTIME</span>
+<span class="kw">const</span> <span class="kw">int</span> myConstVariable = <span class="num">42</span>;               <span class="cmt">// must be known at COMPILE-TIME</span><span class="lang">DART</span></pre>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>final</th><th>const</th></tr></thead>
+      <tbody>
+        <tr><td>Reassignment</td><td>Once (set at runtime)</td><td class="invalid">Not Allowed</td></tr>
+        <tr><td>Value Known at Compile Time</td><td>Not Necessarily</td><td class="valid">Yes</td></tr>
+        <tr><td>Mutability</td><td>Can hold mutable objects</td><td>Immutable</td></tr>
+        <tr><td>Use Cases</td><td>Consistent, computed values</td><td>True constants</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── Operators ── -->
+  <h2><span class="h-tag">07</span> Operators in Dart</h2>
+  <p>Operators are special symbols used to carry out operations on operands. Dart has numerous built-in operators for different functions.</p>
+
+  <div class="chip-group" style="margin-bottom:20px">
+    <span class="chip" style="color:var(--blue)">1. Arithmetic</span>
+    <span class="chip" style="color:var(--blue)">2. Relational</span>
+    <span class="chip" style="color:var(--blue)">3. Type Test</span>
+    <span class="chip" style="color:var(--blue)">4. Bitwise</span>
+    <span class="chip" style="color:var(--blue)">5. Assignment</span>
+    <span class="chip" style="color:var(--blue)">6. Logical</span>
+    <span class="chip" style="color:var(--blue)">7. Conditional</span>
+    <span class="chip" style="color:var(--blue)">8. Cascade</span>
+  </div>
+
+  <!-- 1. Arithmetic -->
+  <h3>1. Arithmetic Operators</h3>
+  <p>Binary operators &mdash; act on two operands to perform arithmetic operations.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sym">+</span></td><td>Addition</td><td>Add two operands</td></tr>
+        <tr><td><span class="sym">-</span></td><td>Subtraction</td><td>Subtract two operands</td></tr>
+        <tr><td><span class="sym">-Expr</span></td><td>Unary Minus</td><td>Reverse the sign of an expression</td></tr>
+        <tr><td><span class="sym">*</span></td><td>Multiply</td><td>Multiply two operands</td></tr>
+        <tr><td><span class="sym">/</span></td><td>Division</td><td>Divide two operands &mdash; output is <strong>double</strong></td></tr>
+        <tr><td><span class="sym">~/</span></td><td>Integer Division</td><td>Divide two operands &mdash; output is <strong>int</strong></td></tr>
+        <tr><td><span class="sym">%</span></td><td>Modulus</td><td>Remainder after division</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <pre><span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">int</span> a = <span class="num">2</span>, b = <span class="num">3</span>;
+  <span class="kw">var</span> c = a + b;  <span class="fn">print</span>(<span class="str">"Sum: $c"</span>);
+  <span class="kw">var</span> d = a - b;  <span class="fn">print</span>(<span class="str">"Difference: $d"</span>);
+  <span class="kw">var</span> e = -d;     <span class="fn">print</span>(<span class="str">"Negation: $e"</span>);
+  <span class="kw">var</span> f = a * b;  <span class="fn">print</span>(<span class="str">"Product: $f"</span>);
+  <span class="kw">var</span> g = b / a;  <span class="fn">print</span>(<span class="str">"Division (double): $g"</span>);
+  <span class="kw">var</span> h = b ~/ a; <span class="fn">print</span>(<span class="str">"Division (int): $h"</span>);
+  <span class="kw">var</span> i = b % a;  <span class="fn">print</span>(<span class="str">"Remainder: $i"</span>);
+}<span class="lang">DART</span></pre>
+
+  <!-- 2. Relational -->
+  <h3>2. Relational Operators</h3>
+  <p>Used to compare two operands. Always return a <strong>boolean</strong> result.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sym">&gt;</span></td><td>Greater than</td><td>Returns true if left operand is bigger</td></tr>
+        <tr><td><span class="sym">&lt;</span></td><td>Less than</td><td>Returns true if left operand is smaller</td></tr>
+        <tr><td><span class="sym">&gt;=</span></td><td>Greater than or equal to</td><td>Returns true if left is greater or equal</td></tr>
+        <tr><td><span class="sym">&lt;=</span></td><td>Less than or equal to</td><td>Returns true if left is smaller or equal</td></tr>
+        <tr><td><span class="sym">==</span></td><td>Equal to</td><td>Returns true if both operands are equal</td></tr>
+        <tr><td><span class="sym">!=</span></td><td>Not equal to</td><td>Returns true if operands are NOT equal</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 3. Type Test -->
+  <h3>3. Type Test Operators</h3>
+  <p>Used to compare/check types of operands at runtime.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sym">is</span></td><td>is</td><td>Returns <code>true</code> if object has the specified type</td></tr>
+        <tr><td><span class="sym">is!</span></td><td>is not</td><td>Returns <code>false</code> if object has the specified type</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <pre><span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="type">String</span> a = <span class="str">'GFG'</span>;
+  <span class="kw">double</span> b = <span class="num">3.3</span>;
+  <span class="fn">print</span>(a <span class="kw">is</span> <span class="type">String</span>);  <span class="cmt">// true</span>
+  <span class="fn">print</span>(b <span class="kw">is!</span> <span class="kw">int</span>);    <span class="cmt">// true</span>
+}<span class="lang">DART</span></pre>
+
+  <!-- 4. Bitwise -->
+  <h3>4. Bitwise Operators</h3>
+  <p>Perform bitwise operations directly on the binary representation of integers.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sym">&amp;</span></td><td>Bitwise AND</td><td>Performs AND on each bit of two operands</td></tr>
+        <tr><td><span class="sym">|</span></td><td>Bitwise OR</td><td>Performs OR on each bit of two operands</td></tr>
+        <tr><td><span class="sym">^</span></td><td>Bitwise XOR</td><td>Performs XOR on each bit of two operands</td></tr>
+        <tr><td><span class="sym">~</span></td><td>Bitwise NOT</td><td>Inverts all bits of the operand</td></tr>
+        <tr><td><span class="sym">&lt;&lt;</span></td><td>Left Shift</td><td>Shifts bits to the left by b positions, inserts 0 from right</td></tr>
+        <tr><td><span class="sym">&gt;&gt;</span></td><td>Right Shift</td><td>Shifts bits to the right by b positions, inserts 0 from left</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <pre><span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">int</span> a = <span class="num">5</span>, b = <span class="num">7</span>;
+  <span class="fn">print</span>(a &amp; b);   <span class="cmt">// Bitwise AND</span>
+  <span class="fn">print</span>(a | b);   <span class="cmt">// Bitwise OR</span>
+  <span class="fn">print</span>(a ^ b);   <span class="cmt">// Bitwise XOR</span>
+  <span class="fn">print</span>(~a);      <span class="cmt">// Bitwise NOT</span>
+  <span class="fn">print</span>(a &lt;&lt; b);  <span class="cmt">// Left Shift: 101(a) moved 7 bits left</span>
+  <span class="fn">print</span>(a &gt;&gt; b);  <span class="cmt">// Right Shift</span>
+}<span class="lang">DART</span></pre>
+
+  <!-- 5. Assignment -->
+  <h3>5. Assignment Operators</h3>
+  <p>Used to assign values to variables.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sym">=</span></td><td>Equal To</td><td>Assign a value to a variable</td></tr>
+        <tr><td><span class="sym">??=</span></td><td>Null-aware Assignment</td><td>Assign value only if variable is <code>null</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <pre><span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">int</span> a = <span class="num">5</span>, b = <span class="num">7</span>;
+  <span class="kw">var</span> c = a * b;
+  <span class="fn">print</span>(c);           <span class="cmt">// 35</span>
+
+  <span class="kw">var</span> d;
+  d ??= a + b;        <span class="cmt">// d is null, so assigned = 12</span>
+  <span class="fn">print</span>(d);           <span class="cmt">// 12</span>
+
+  d ??= a - b;        <span class="cmt">// d is NOT null, NOT reassigned</span>
+  <span class="fn">print</span>(d);           <span class="cmt">// still 12</span>
+}<span class="lang">DART</span></pre>
+
+  <!-- 6. Logical -->
+  <h3>6. Logical Operators</h3>
+  <p>Used to logically combine two or more conditions.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sym">&amp;&amp;</span></td><td>AND</td><td>Returns <code>true</code> if <strong>both</strong> conditions are true</td></tr>
+        <tr><td><span class="sym">||</span></td><td>OR</td><td>Returns <code>true</code> if <strong>at least one</strong> condition is true</td></tr>
+        <tr><td><span class="sym">!</span></td><td>NOT</td><td>Reverses the result of a condition</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <pre><span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">int</span> a = <span class="num">5</span>, b = <span class="num">7</span>;
+  <span class="kw">bool</span> c = a &gt; <span class="num">10</span> &amp;&amp; b &lt; <span class="num">10</span>;  <span class="cmt">// AND — false (a is not > 10)</span>
+  <span class="fn">print</span>(c);
+  <span class="kw">bool</span> d = a &gt; <span class="num">10</span> || b &lt; <span class="num">10</span>;  <span class="cmt">// OR — true (b < 10)</span>
+  <span class="fn">print</span>(d);
+  <span class="kw">bool</span> e = !(a &gt; <span class="num">10</span>);          <span class="cmt">// NOT — true</span>
+  <span class="fn">print</span>(e);
+}<span class="lang">DART</span></pre>
+
+  <!-- 7. Conditional -->
+  <h3>7. Conditional Operators</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="sym">condition ? expr1 : expr2</span></td>
+          <td>Ternary Operator</td>
+          <td>If condition is <code>true</code> → execute <code>expr1</code>, else → execute <code>expr2</code></td>
+        </tr>
+        <tr>
+          <td><span class="sym">expr1 ?? expr2</span></td>
+          <td>Null-coalescing</td>
+          <td>If <code>expr1</code> is non-null → return its value, else → return <code>expr2</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <pre><span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="kw">int</span> a = <span class="num">5</span>;
+  <span class="cmt">// Ternary</span>
+  <span class="kw">var</span> c = (a &lt; <span class="num">10</span>) ? <span class="str">"The University of Lahore"</span> : <span class="str">"Information Eng. Tech"</span>;
+  <span class="fn">print</span>(c);  <span class="cmt">// "The University of Lahore"</span>
+
+  <span class="cmt">// Null-aware</span>
+  <span class="kw">int</span>? n;    <span class="cmt">// nullable int, holds null</span>
+  <span class="kw">var</span> d = n ?? <span class="str">"n has Null value"</span>;
+  <span class="fn">print</span>(d);  <span class="cmt">// "n has Null value"</span>
+
+  <span class="kw">var</span> t = <span class="num">2</span> ?? <span class="str">"Pakistan"</span>;
+  <span class="fn">print</span>(t);  <span class="cmt">// 2 (non-null, so returns itself)</span>
+}<span class="lang">DART</span></pre>
+
+  <!-- 8. Cascade -->
+  <h3>8. Cascade Notation Operator</h3>
+  <p>Allows performing a <strong>sequence of operations on the same object</strong>. Instead of calling multiple methods one-by-one, you chain them with <code>..</code>.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sym">..</span></td><td>Cascading Method</td><td>Perform multiple methods on the same object</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <pre><span class="kw">class</span> <span class="type">test</span> {
+  <span class="kw">var</span> a, b;
+  <span class="kw">void</span> <span class="fn">set</span>(x, y) { <span class="kw">this</span>.a = x; <span class="kw">this</span>.b = y; }
+  <span class="kw">void</span> <span class="fn">add</span>() { <span class="fn">print</span>(<span class="kw">this</span>.a + <span class="kw">this</span>.b); }
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="type">test</span> geek1 = <span class="kw">new</span> <span class="fn">test</span>();
+  <span class="cmt">// Without cascade:</span>
+  geek1.<span class="fn">set</span>(<span class="num">1</span>, <span class="num">2</span>);
+  geek1.<span class="fn">add</span>();
+
+  <span class="type">test</span> geek2 = <span class="kw">new</span> <span class="fn">test</span>();
+  <span class="cmt">// With cascade notation:</span>
+  geek2
+    ..<span class="fn">set</span>(<span class="num">3</span>, <span class="num">4</span>)
+    ..<span class="fn">add</span>();
+}<span class="lang">DART</span></pre>
+
+  <div class="practice">
+    <div class="practice-title">Practice Questions</div>
+    <ol>
+      <li>Write a Dart program that calculates integer division between two numbers and prints the quotient.</li>
+      <li>Write a Dart program that takes an integer and prints its negative value using the unary minus operator.</li>
+      <li>Write a Dart program that compares two numbers and prints whether the first is less than or equal to the second.</li>
+      <li>Write a Dart program that compares two numbers and prints whether they are equal.</li>
+      <li>Write a Dart program that compares two numbers and prints whether they are not equal.</li>
+      <li>Write a Dart program that initializes a variable with a default value and updates it only if it is null.</li>
+      <li>Write a Dart program that checks if a person is eligible to vote (age &ge; 18 AND is a citizen) using logical operators.</li>
+      <li>Write a Dart program that checks if a user is eligible for a discount (premium member OR purchase &gt; $100).</li>
+      <li>Write a Dart program that checks if a user has NOT subscribed to a newsletter and prints a promotional offer only if not subscribed.</li>
+      <li>Write a Dart program that determines whether a number is positive or negative using the ternary operator.</li>
+      <li>Write a Dart program that determines whether a number is even or odd using the ternary operator.</li>
+      <li>Write a Dart program that checks if a person is eligible to vote (age &ge; 18) using the ternary operator.</li>
+      <li>Write a Dart program that checks if a user is eligible for a discount on a purchase using the ternary operator.</li>
+    </ol>
+  </div>
+
+</div>
+</div><!-- /lab2 -->
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
