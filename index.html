@@ -3,389 +3,146 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Flutter / Dart — Lab Notes</title>
+<title>Sem 5 &mdash; Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
-:root {
-  --bg:        #080c12;
-  --bg2:       #0c1018;
-  --panel:     #111722;
-  --panel2:    #161e2c;
-  --panel3:    #1b2535;
-  --border:    #1f2d40;
-  --border2:   #283a52;
-  --text:      #dde4ee;
-  --muted:     #8a9bb5;
-  --dim:       #506070;
-  --blue:      #54c5f8;
-  --blue2:     #029fdf;
-  --dart:      #00d4c8;
-  --dart2:     #00a89e;
-  --accent:    #ffca28;
-  --green:     #4ade80;
-  --red:       #f87171;
-  --purple:    #c084fc;
-  --code-bg:   #0a1018;
-  --code-border:#1d2d3e;
+:root{
+  --bg:#080c12;--bg2:#0c1018;--panel:#111722;--panel2:#161e2c;--panel3:#1b2535;
+  --border:#1f2d40;--border2:#283a52;--text:#dde4ee;--muted:#8a9bb5;--dim:#506070;
+  --blue:#54c5f8;--blue2:#029fdf;--dart:#00d4c8;--dart2:#00a89e;--accent:#ffca28;
+  --green:#4ade80;--red:#f87171;--purple:#c084fc;--ai:#c084fc;--ai2:#a855f7;
+  --code-bg:#0a1018;--code-border:#1d2d3e;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Inter',-apple-system,sans-serif;
-  font-size:15px;
-  line-height:1.7;
-  -webkit-font-smoothing:antialiased;
-  background-image:
-    radial-gradient(circle at 10% 0%,rgba(84,197,248,.06),transparent 45%),
-    radial-gradient(circle at 90% 100%,rgba(0,212,200,.05),transparent 45%);
-  min-height:100vh;
-}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;background-image:radial-gradient(circle at 10% 0%,rgba(84,197,248,.06),transparent 45%),radial-gradient(circle at 90% 100%,rgba(0,212,200,.05),transparent 45%);min-height:100vh;}
 code,pre{font-family:'JetBrains Mono',monospace}
 
-/* ── HEADER ── */
-.site-header{
-  background:rgba(8,12,18,.92);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-  position:sticky;top:0;z-index:100;
-  padding:0 32px;
-  display:flex;align-items:center;gap:20px;
-  height:60px;
-}
-.logo{
-  display:flex;align-items:center;gap:10px;
-  text-decoration:none;flex-shrink:0;
-}
-.logo-icon{
-  width:32px;height:32px;border-radius:8px;
-  background:linear-gradient(135deg,var(--blue),var(--dart));
-  display:flex;align-items:center;justify-content:center;
-  font-weight:900;font-size:15px;color:#080c12;
-  box-shadow:0 0 18px rgba(84,197,248,.35);
-}
+/* HEADER */
+.site-header{background:rgba(8,12,18,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;padding:0 32px;display:flex;align-items:center;gap:20px;height:60px;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.logo-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--dart));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;color:#080c12;box-shadow:0 0 18px rgba(84,197,248,.35);}
 .logo-text{font-weight:800;font-size:16px;letter-spacing:-.02em;color:var(--text)}
 .logo-sub{color:var(--muted);font-size:11px;margin-left:2px}
+.course-badge{margin-left:auto;background:var(--panel2);border:1px solid var(--border2);border-radius:6px;padding:4px 12px;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase;}
 
-.course-badge{
-  margin-left:auto;
-  background:var(--panel2);
-  border:1px solid var(--border2);
-  border-radius:6px;
-  padding:4px 12px;
-  font-size:11px;
-  color:var(--muted);
-  font-weight:600;
-  letter-spacing:.04em;
-  text-transform:uppercase;
-}
+/* SUBJECT BAR */
+.subject-bar{display:flex;gap:4px;padding:16px 32px 0;background:var(--bg);border-bottom:2px solid var(--border2);}
+.subject-btn{padding:9px 22px;border:1px solid var(--border);border-bottom:none;background:var(--panel);color:var(--muted);font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border-radius:6px 6px 0 0;transition:all .18s;letter-spacing:.01em;position:relative;bottom:-2px;}
+.subject-btn:hover{color:var(--text);background:var(--panel2)}
+.subject-btn.active{color:var(--blue);background:var(--panel2);border-color:var(--border2);border-bottom:2px solid var(--bg2);}
 
-/* ── TABS ── */
-.tabs-bar{
-  display:flex;gap:4px;
-  padding:20px 32px 0;
-  border-bottom:1px solid var(--border);
-  background:var(--bg2);
-}
-.tab-btn{
-  padding:10px 22px;
-  border:none;background:none;
-  color:var(--muted);
-  font-family:'Inter',sans-serif;
-  font-size:13px;font-weight:600;
-  cursor:pointer;
-  border-bottom:2px solid transparent;
-  transition:all .18s;
-  border-radius:4px 4px 0 0;
-  letter-spacing:.01em;
-  position:relative;bottom:-1px;
-}
+/* SUB-TABS */
+.sub-tabs{display:flex;gap:4px;padding:20px 32px 0;border-bottom:1px solid var(--border);background:var(--bg2);}
+.tab-btn{padding:10px 22px;border:none;background:none;color:var(--muted);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;transition:all .18s;border-radius:4px 4px 0 0;letter-spacing:.01em;position:relative;bottom:-1px;}
 .tab-btn:hover{color:var(--text);background:var(--panel)}
-.tab-btn.active{
-  color:var(--blue);
-  border-bottom-color:var(--blue);
-  background:var(--panel);
-}
+.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue);background:var(--panel);}
+.ai-tab.active{color:var(--ai)!important;border-bottom-color:var(--ai)!important}
+.ai-tab:hover{color:var(--ai)!important}
 
-/* ── CONTENT ── */
-.tab-content{display:none}
-.tab-content.active{display:block}
-
+/* CONTENT */
+.tab-content{display:none}.tab-content.active{display:block}
 .page{max-width:860px;margin:0 auto;padding:48px 32px 100px}
 
-/* ── SECTION HEADERS ── */
-.lab-title{
-  display:inline-flex;align-items:center;gap:12px;
-  background:linear-gradient(135deg,var(--blue),var(--dart));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  font-size:28px;font-weight:800;letter-spacing:-.03em;
-  margin-bottom:6px;
-}
+/* TITLES */
+.lab-title{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--blue),var(--dart));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px;}
+.ai-title{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--ai),var(--ai2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px;}
 .lab-meta{color:var(--muted);font-size:13px;margin-bottom:40px}
 .lab-meta span{color:var(--blue);font-weight:600}
+.lab-meta span.ai{color:var(--ai);font-weight:600}
 
-h2{
-  font-size:20px;font-weight:700;letter-spacing:-.02em;
-  color:var(--text);
-  margin:40px 0 12px;
-  padding-bottom:8px;
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:10px;
-}
-h2 .h-tag{
-  font-size:10px;font-weight:700;
-  background:var(--panel2);
-  border:1px solid var(--border2);
-  color:var(--blue);
-  border-radius:4px;padding:2px 7px;
-  font-family:'JetBrains Mono',monospace;
-  letter-spacing:.05em;
-}
-h3{
-  font-size:15px;font-weight:700;
-  color:var(--blue);
-  margin:24px 0 8px;
-  display:flex;align-items:center;gap:8px;
-}
-h3::before{
-  content:'';width:3px;height:16px;
-  background:linear-gradient(var(--blue),var(--dart));
-  border-radius:2px;display:block;
-}
+h2{font-size:20px;font-weight:700;letter-spacing:-.02em;color:var(--text);margin:40px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+h2 .h-tag{font-size:10px;font-weight:700;background:var(--panel2);border:1px solid var(--border2);color:var(--blue);border-radius:4px;padding:2px 7px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+h2 .h-tag.ai{color:var(--ai)}
+h3{font-size:15px;font-weight:700;color:var(--blue);margin:24px 0 8px;display:flex;align-items:center;gap:8px;}
+h3::before{content:'';width:3px;height:16px;background:linear-gradient(var(--blue),var(--dart));border-radius:2px;display:block;}
+h3.ai-h{color:var(--ai)}
+h3.ai-h::before{background:linear-gradient(var(--ai),var(--ai2))}
 
 p{color:var(--text);margin-bottom:10px}
-p + p{margin-top:4px}
 
-/* ── DEFINITION BOX ── */
-.def-box{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-left:3px solid var(--blue);
-  border-radius:0 8px 8px 0;
-  padding:16px 20px;
-  margin:16px 0;
-  color:var(--text);
-  font-size:14px;
-  line-height:1.75;
-}
+/* DEF BOX */
+.def-box{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:16px 20px;margin:16px 0;color:var(--text);font-size:14px;line-height:1.75;}
 .def-box strong{color:var(--blue)}
+.def-box.ai{border-left-color:var(--ai)}.def-box.ai strong{color:var(--ai)}
 
-/* ── INFO / NOTE / WARN ── */
-.note{
-  background:rgba(84,197,248,.07);
-  border:1px solid rgba(84,197,248,.2);
-  border-radius:8px;
-  padding:14px 18px;
-  margin:16px 0;
-  font-size:13.5px;
-  color:var(--text);
-}
-.note .note-label{
-  font-weight:700;color:var(--blue);
-  font-size:11px;letter-spacing:.06em;text-transform:uppercase;
-  display:block;margin-bottom:4px;
-}
-.warn{
-  background:rgba(255,202,40,.06);
-  border:1px solid rgba(255,202,40,.2);
-  border-radius:8px;
-  padding:14px 18px;
-  margin:16px 0;
-  font-size:13.5px;
-}
+/* NOTE / WARN / OK */
+.note{background:rgba(84,197,248,.07);border:1px solid rgba(84,197,248,.2);border-radius:8px;padding:14px 18px;margin:16px 0;font-size:13.5px;color:var(--text);}
+.note .note-label{font-weight:700;color:var(--blue);font-size:11px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:4px;}
+.note.ai{background:rgba(192,132,252,.07);border-color:rgba(192,132,252,.2)}
+.note.ai .note-label{color:var(--ai)}
+.warn{background:rgba(255,202,40,.06);border:1px solid rgba(255,202,40,.2);border-radius:8px;padding:14px 18px;margin:16px 0;font-size:13.5px;}
 .warn .note-label{color:var(--accent)}
-.ok{
-  background:rgba(74,222,128,.06);
-  border:1px solid rgba(74,222,128,.2);
-  border-radius:8px;
-  padding:14px 18px;
-  margin:16px 0;
-  font-size:13.5px;
-}
+.ok{background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.2);border-radius:8px;padding:14px 18px;margin:16px 0;font-size:13.5px;}
 .ok .note-label{color:var(--green)}
 
-/* ── CODE ── */
-pre{
-  background:var(--code-bg);
-  border:1px solid var(--code-border);
-  border-radius:10px;
-  padding:18px 20px;
-  overflow-x:auto;
-  margin:14px 0;
-  font-size:13px;
-  line-height:1.65;
-  color:#c8d8ec;
-  position:relative;
-}
-pre .lang{
-  position:absolute;top:10px;right:14px;
-  font-size:10px;color:var(--dim);
-  font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-}
-.kw{color:#54c5f8}
-.kw2{color:#c084fc}
-.str{color:#4ade80}
-.num{color:#ffca28}
-.cmt{color:#4a6070;font-style:italic}
-.fn{color:#00d4c8}
-.type{color:#f9a8d4}
+/* CODE */
+pre{background:var(--code-bg);border:1px solid var(--code-border);border-radius:10px;padding:18px 20px;overflow-x:auto;margin:14px 0;font-size:13px;line-height:1.65;color:#c8d8ec;position:relative;}
+pre .lang{position:absolute;top:10px;right:14px;font-size:10px;color:var(--dim);font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.kw{color:#54c5f8}.kw2{color:#c084fc}.str{color:#4ade80}.num{color:#ffca28}.cmt{color:#4a6070;font-style:italic}.fn{color:#00d4c8}.type{color:#f9a8d4}
+code:not(pre code){background:var(--panel2);border:1px solid var(--border2);border-radius:4px;padding:1px 6px;font-size:12.5px;color:var(--dart);}
 
-/* ── INLINE CODE ── */
-code:not(pre code){
-  background:var(--panel2);
-  border:1px solid var(--border2);
-  border-radius:4px;
-  padding:1px 6px;
-  font-size:12.5px;
-  color:var(--dart);
-}
-
-/* ── LISTS ── */
+/* LISTS */
 ul,ol{padding-left:20px;margin:8px 0 14px}
 li{margin-bottom:6px;color:var(--text);font-size:14px}
 li strong{color:var(--blue)}
+li strong.ai{color:var(--ai)}
 
-/* ── TABLES ── */
+/* TABLES */
 .tbl-wrap{overflow-x:auto;margin:16px 0}
-table{
-  width:100%;border-collapse:collapse;
-  font-size:13.5px;
-}
-th{
-  background:var(--panel2);
-  color:var(--blue);
-  font-weight:700;
-  padding:11px 16px;
-  text-align:left;
-  border:1px solid var(--border2);
-  font-size:12px;text-transform:uppercase;letter-spacing:.05em;
-}
-td{
-  padding:10px 16px;
-  border:1px solid var(--border);
-  color:var(--text);
-  vertical-align:top;
-}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+th{background:var(--panel2);color:var(--blue);font-weight:700;padding:11px 16px;text-align:left;border:1px solid var(--border2);font-size:12px;text-transform:uppercase;letter-spacing:.05em;}
+th.ai{color:var(--ai)}
+td{padding:10px 16px;border:1px solid var(--border);color:var(--text);vertical-align:top;}
 tr:nth-child(even) td{background:var(--panel)}
 td code{background:var(--panel3);border:none;color:var(--dart)}
 
-/* ── OPERATOR SYMBOL ── */
-.sym{
-  font-family:'JetBrains Mono',monospace;
-  font-weight:700;
-  color:var(--accent);
-  font-size:15px;
-}
-
-/* ── CARDS GRID ── */
+/* MISC */
+.sym{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--accent);font-size:15px;}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0}
-.card{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:16px 18px;
-  transition:border-color .2s,transform .2s;
-}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px 18px;transition:border-color .2s,transform .2s;}
 .card:hover{border-color:var(--border2);transform:translateY(-2px)}
 .card-icon{font-size:22px;margin-bottom:8px}
 .card-title{font-weight:700;font-size:13px;color:var(--text);margin-bottom:4px}
 .card-desc{font-size:12px;color:var(--muted);line-height:1.55}
-
-/* ── TWO-COL ── */
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
 @media(max-width:600px){.two-col{grid-template-columns:1fr}}
-
-/* ── KEYWORD CHIPS ── */
 .chip-group{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
-.chip{
-  background:var(--panel2);
-  border:1px solid var(--border2);
-  border-radius:5px;
-  padding:3px 10px;
-  font-size:12px;
-  font-family:'JetBrains Mono',monospace;
-  color:var(--dart);
-}
-
-/* ── STEPS ── */
+.chip{background:var(--panel2);border:1px solid var(--border2);border-radius:5px;padding:3px 10px;font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--dart);}
 .steps{counter-reset:step;margin:14px 0}
-.step{
-  display:flex;gap:14px;
-  margin-bottom:14px;
-  align-items:flex-start;
-}
-.step-num{
-  flex-shrink:0;
-  width:28px;height:28px;border-radius:50%;
-  background:linear-gradient(135deg,var(--blue2),var(--dart2));
-  color:#080c12;font-weight:800;font-size:12px;
-  display:flex;align-items:center;justify-content:center;
-  margin-top:2px;
-}
+.step{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start;}
+.step-num{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--blue2),var(--dart2));color:#080c12;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;margin-top:2px;}
+.step-num.ai{background:linear-gradient(135deg,var(--ai),var(--ai2))}
 .step-body{font-size:14px;color:var(--text)}
 .step-body strong{color:var(--blue)}
-
-/* ── VALIDITY TABLE ── */
-.valid{color:var(--green);font-weight:700}
-.invalid{color:var(--red);font-weight:700}
-
-/* ── PRACTICE BOX ── */
-.practice{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-top:3px solid var(--accent);
-  border-radius:0 0 10px 10px;
-  padding:20px 24px;
-  margin:28px 0;
-}
-.practice-title{
-  font-size:13px;font-weight:800;color:var(--accent);
-  text-transform:uppercase;letter-spacing:.07em;
-  margin-bottom:14px;
-}
+.step-body strong.ai{color:var(--ai)}
+.valid{color:var(--green);font-weight:700}.invalid{color:var(--red);font-weight:700}
+.practice{background:var(--panel);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:0 0 10px 10px;padding:20px 24px;margin:28px 0;}
+.practice-title{font-size:13px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;}
 .practice ol{padding-left:18px}
 .practice li{font-size:13.5px;color:var(--muted);margin-bottom:8px}
-
-/* ── DIVIDER ── */
-.divider{
-  height:1px;background:var(--border);
-  margin:36px 0;
-}
-
-/* ── SCROLLBAR ── */
+.divider{height:1px;background:var(--border);margin:36px 0;}
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:var(--muted)}
-
-/* ── HIGHLIGHT SPAN ── */
-.hl-blue{color:var(--blue);font-weight:600}
-.hl-dart{color:var(--dart);font-weight:600}
-.hl-green{color:var(--green);font-weight:600}
-.hl-red{color:var(--red);font-weight:600}
-.hl-acc{color:var(--accent);font-weight:600}
-
-/* ── COMPARISON CARD ── */
+.hl-blue{color:var(--blue);font-weight:600}.hl-dart{color:var(--dart);font-weight:600}.hl-green{color:var(--green);font-weight:600}.hl-red{color:var(--red);font-weight:600}.hl-acc{color:var(--accent);font-weight:600}.hl-ai{color:var(--ai);font-weight:600}
 .cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
 @media(max-width:560px){.cmp-grid{grid-template-columns:1fr}}
-.cmp-card{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:18px;
-}
+.cmp-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;}
 .cmp-card h4{font-size:14px;font-weight:700;margin-bottom:10px}
-.cmp-card.blue{border-top:3px solid var(--blue)}
-.cmp-card.blue h4{color:var(--blue)}
-.cmp-card.dart{border-top:3px solid var(--dart)}
-.cmp-card.dart h4{color:var(--dart)}
-.cmp-card.acc{border-top:3px solid var(--accent)}
-.cmp-card.acc h4{color:var(--accent)}
+.cmp-card.blue{border-top:3px solid var(--blue)}.cmp-card.blue h4{color:var(--blue)}
+.cmp-card.dart{border-top:3px solid var(--dart)}.cmp-card.dart h4{color:var(--dart)}
+.cmp-card.acc{border-top:3px solid var(--accent)}.cmp-card.acc h4{color:var(--accent)}
+.cmp-card.ai{border-top:3px solid var(--ai)}.cmp-card.ai h4{color:var(--ai)}
+.cmp-card.green{border-top:3px solid var(--green)}.cmp-card.green h4{color:var(--green)}
 .cmp-card ul{padding-left:16px}
 .cmp-card li{font-size:13px;color:var(--muted);margin-bottom:6px}
+.prob-box{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--ai);border-radius:0 10px 10px 0;padding:20px 24px;margin:20px 0;}
+.prob-title{font-size:15px;font-weight:800;color:var(--ai);margin-bottom:4px;}
+.prob-obj{font-size:13px;color:var(--muted);margin-bottom:14px;}
 </style>
 </head>
 <body>
@@ -393,22 +150,36 @@ td code{background:var(--panel3);border:none;color:var(--dart)}
 <!-- HEADER -->
 <header class="site-header">
   <div class="logo">
-    <div class="logo-icon">F</div>
+    <div class="logo-icon">S5</div>
     <div>
-      <div class="logo-text">Flutter<span class="logo-sub"> &amp; Dart</span></div>
+      <div class="logo-text">Sem 5<span class="logo-sub"> Notes</span></div>
     </div>
   </div>
-  <div class="course-badge">Mobile App Dev &nbsp;|&nbsp; UOL</div>
+  <div class="course-badge">Department of Technology &nbsp;|&nbsp; UOL</div>
 </header>
 
-<!-- TABS -->
-<div class="tabs-bar">
+<!-- SUBJECT BAR -->
+<div class="subject-bar">
+  <button class="subject-btn active" onclick="switchSubject('flutter',this)">Flutter / Dart</button>
+  <button class="subject-btn" onclick="switchSubject('ai',this)">Artificial Intelligence</button>
+</div>
+
+<!-- FLUTTER SUB-TABS -->
+<div id="flutter-tabs" class="sub-tabs">
   <button class="tab-btn active" onclick="switchTab('lab1',this)">Lab 1 &mdash; Intro &amp; Setup</button>
   <button class="tab-btn" onclick="switchTab('lab2',this)">Lab 2 &mdash; Variables &amp; Operators</button>
 </div>
 
+<!-- AI SUB-TABS -->
+<div id="ai-tabs" class="sub-tabs" style="display:none">
+  <button class="tab-btn ai-tab" onclick="switchTab('ai-lec1',this)">Lec 1 &mdash; ML Introduction</button>
+  <button class="tab-btn ai-tab" onclick="switchTab('ai-lab1',this)">Lab 1 &mdash; Setup &amp; Libraries</button>
+  <button class="tab-btn ai-tab" onclick="switchTab('ai-lab2',this)">Lab 2 &mdash; Linear Regression</button>
+  <button class="tab-btn ai-tab" onclick="switchTab('ai-lab3',this)">Lab 3 &mdash; Multiple &amp; Logistic</button>
+</div>
+
 <!-- ══════════════════════════════════════════════════ -->
-<!--  LAB 1                                             -->
+<!--  FLUTTER LAB 1                                     -->
 <!-- ══════════════════════════════════════════════════ -->
 <div id="lab1" class="tab-content active">
 <div class="page">
@@ -416,127 +187,53 @@ td code{background:var(--panel3);border:none;color:var(--dart)}
   <div class="lab-title">Introduction to Flutter</div>
   <p class="lab-meta">Mobile Application Development &nbsp;&bull;&nbsp; <span>Lab #1</span> &nbsp;&bull;&nbsp; Department of Technology &nbsp;&bull;&nbsp; The University of Lahore</p>
 
-  <!-- ── What is Flutter ── -->
   <h2><span class="h-tag">01</span> What is Flutter?</h2>
-
   <div class="def-box">
     Flutter is a <strong>tool</strong> that allows you to build <strong>Native Cross-Platform</strong> (iOS, Android) apps using one Programming Language and one Codebase.
   </div>
-
   <p>More formally, Flutter is Google's <strong>open-source UI toolkit</strong> for building beautiful, natively compiled applications for <strong>mobile, web, desktop, and embedded devices</strong> from a single codebase.</p>
-
   <div class="two-col">
-    <div class="cmp-card blue">
-      <h4>Native</h4>
-      <ul>
-        <li>Built with platform-specific languages &mdash; Swift for iOS, Java/Kotlin for Android</li>
-        <li>Tight integration with platform hardware &amp; features</li>
-        <li>Smooth performance and full device capability access</li>
-      </ul>
-    </div>
-    <div class="cmp-card dart">
-      <h4>Cross-Platform</h4>
-      <ul>
-        <li>One codebase runs on multiple platforms</li>
-        <li>Saves time &amp; resources</li>
-        <li>Flutter uses Dart, compiled to native code for each platform</li>
-      </ul>
-    </div>
+    <div class="cmp-card blue"><h4>Native</h4><ul><li>Built with platform-specific languages &mdash; Swift for iOS, Java/Kotlin for Android</li><li>Tight integration with platform hardware &amp; features</li><li>Smooth performance and full device capability access</li></ul></div>
+    <div class="cmp-card dart"><h4>Cross-Platform</h4><ul><li>One codebase runs on multiple platforms</li><li>Saves time &amp; resources</li><li>Flutter uses Dart, compiled to native code for each platform</li></ul></div>
   </div>
-
   <div class="note">
     <span class="note-label">In Easy Words</span>
     Flutter is like a <strong>Universal Charger</strong> &mdash; one thing that works everywhere. It acts as a <strong>translator</strong> that knows Java/Kotlin (Android) and Swift (iOS), so you write once in Dart and it speaks to both.
   </div>
-
   <h3>Programming Language vs Codebase</h3>
   <div class="two-col">
-    <div style="background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px">
-      <p style="font-weight:700;color:var(--blue);margin-bottom:6px;font-size:13px">Programming Language</p>
-      <p style="font-size:13px;color:var(--muted)">The set of rules you use to tell the computer what to build. Like specific instructions: "Dig a moat here, build a tall tower there." It's the language the computer understands.</p>
-    </div>
-    <div style="background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px">
-      <p style="font-weight:700;color:var(--dart);margin-bottom:6px;font-size:13px">Codebase</p>
-      <p style="font-size:13px;color:var(--muted)">Your entire plan &mdash; like a kitchen book with all recipes. It holds all the code for your app in one place, organized in order.</p>
-    </div>
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px"><p style="font-weight:700;color:var(--blue);margin-bottom:6px;font-size:13px">Programming Language</p><p style="font-size:13px;color:var(--muted)">The set of rules you use to tell the computer what to build. Like specific instructions: "Dig a moat here, build a tall tower there." It's the language the computer understands.</p></div>
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px"><p style="font-weight:700;color:var(--dart);margin-bottom:6px;font-size:13px">Codebase</p><p style="font-size:13px;color:var(--muted)">Your entire plan &mdash; like a kitchen book with all recipes. It holds all the code for your app in one place, organized in order.</p></div>
   </div>
 
-  <!-- ── Major Components ── -->
   <h2><span class="h-tag">02</span> Major Components of Flutter</h2>
   <p>Flutter = two major things:</p>
-
   <div class="two-col" style="margin-top:14px">
-    <div class="cmp-card blue">
-      <h4>Flutter SDK</h4>
-      <ul>
-        <li>Collection of tools to build apps for Android &amp; iOS in one codebase</li>
-        <li>Set of instructions that aid application development</li>
-        <li>Includes tools for converting Dart code to native machine code</li>
-        <li>Works for both iOS and Android</li>
-      </ul>
-    </div>
-    <div class="cmp-card dart">
-      <h4>Flutter Framework</h4>
-      <ul>
-        <li>Provides predefined widgets &amp; widget library</li>
-        <li>Utility functions &amp; packages</li>
-        <li>Set of reusable UI components (buttons, text inputs, sliders, etc.)</li>
-        <li>Components can be customized according to purpose</li>
-      </ul>
-    </div>
+    <div class="cmp-card blue"><h4>Flutter SDK</h4><ul><li>Collection of tools to build apps for Android &amp; iOS in one codebase</li><li>Set of instructions that aid application development</li><li>Includes tools for converting Dart code to native machine code</li><li>Works for both iOS and Android</li></ul></div>
+    <div class="cmp-card dart"><h4>Flutter Framework</h4><ul><li>Provides predefined widgets &amp; widget library</li><li>Utility functions &amp; packages</li><li>Set of reusable UI components (buttons, text inputs, sliders, etc.)</li><li>Components can be customized according to purpose</li></ul></div>
   </div>
 
-  <!-- ── Dart Language ── -->
   <h2><span class="h-tag">03</span> Introduction to Dart Programming Language</h2>
-
   <div class="def-box">
     Dart is a programming language created by <strong>Google</strong>, specifically for building web, mobile, and desktop apps. Best real-world example of a Dart application: <strong>Gmail</strong>.
   </div>
-
   <h3>Key Features of Dart</h3>
   <div class="cards">
-    <div class="card">
-      <div class="card-icon">🧩</div>
-      <div class="card-title">Object-Oriented</div>
-      <div class="card-desc">Organizes code into reusable objects, making it structured and maintainable.</div>
-    </div>
-    <div class="card">
-      <div class="card-icon">🔒</div>
-      <div class="card-title">Type-Safe</div>
-      <div class="card-desc">Ensures data types are compatible, preventing errors and making code more reliable.</div>
-    </div>
-    <div class="card">
-      <div class="card-icon">⚡</div>
-      <div class="card-title">Fast &amp; Performant</div>
-      <div class="card-desc">Compiles to native code, resulting in efficient apps that run smoothly.</div>
-    </div>
-    <div class="card">
-      <div class="card-icon">✍️</div>
-      <div class="card-title">Concise Syntax</div>
-      <div class="card-desc">Easy to read and write, with clean and straightforward code.</div>
-    </div>
-    <div class="card">
-      <div class="card-icon">♻️</div>
-      <div class="card-title">Hot Reload</div>
-      <div class="card-desc">See changes instantly in running apps during development, saving time and effort.</div>
-    </div>
-    <div class="card">
-      <div class="card-icon">📦</div>
-      <div class="card-title">Rich Ecosystem</div>
-      <div class="card-desc">Wide range of pre-built packages for various tasks, expanding functionality.</div>
-    </div>
+    <div class="card"><div class="card-icon">🧩</div><div class="card-title">Object-Oriented</div><div class="card-desc">Organizes code into reusable objects, making it structured and maintainable.</div></div>
+    <div class="card"><div class="card-icon">🔒</div><div class="card-title">Type-Safe</div><div class="card-desc">Ensures data types are compatible, preventing errors and making code more reliable.</div></div>
+    <div class="card"><div class="card-icon">⚡</div><div class="card-title">Fast &amp; Performant</div><div class="card-desc">Compiles to native code, resulting in efficient apps that run smoothly.</div></div>
+    <div class="card"><div class="card-icon">✍️</div><div class="card-title">Concise Syntax</div><div class="card-desc">Easy to read and write, with clean and straightforward code.</div></div>
+    <div class="card"><div class="card-icon">♻️</div><div class="card-title">Hot Reload</div><div class="card-desc">See changes instantly in running apps during development, saving time and effort.</div></div>
+    <div class="card"><div class="card-icon">📦</div><div class="card-title">Rich Ecosystem</div><div class="card-desc">Wide range of pre-built packages for various tasks, expanding functionality.</div></div>
   </div>
-
   <h3>Flutter vs Dart &mdash; How They Relate</h3>
   <div class="note">
     <span class="note-label">Relationship</span>
     <strong>Dart</strong> is the programming language. <strong>Flutter</strong> is the framework built on top of Dart. Flutter consists of the <em>Flutter Framework</em> (UI widgets) and the <em>Flutter SDK</em> (tooling) &mdash; both powered by Dart underneath.
   </div>
 
-  <!-- ── Environment Setup ── -->
   <h2><span class="h-tag">04</span> Dart Environment Setup</h2>
   <p>Follow these steps to set up Dart on Windows:</p>
-
   <div class="steps">
     <div class="step"><div class="step-num">1</div><div class="step-body">Install the Dart SDK from the official website (<strong>dart.dev/get-archive</strong>) or use the community Windows installer. Choose the <strong>Stable channel</strong> x64 version.</div></div>
     <div class="step"><div class="step-num">2</div><div class="step-body">Download the <strong>64-bit</strong> version of the SDK for your OS.</div></div>
@@ -544,93 +241,55 @@ td code{background:var(--panel3);border:none;color:var(--dart)}
     <div class="step"><div class="step-num">4</div><div class="step-body">Open the <code>dart-sdk\bin</code> folder and <strong>copy the full path</strong> from the address bar.</div></div>
     <div class="step"><div class="step-num">5</div><div class="step-body">Search <strong>ENV</strong> in the Windows search bar and open <em>Edit the system environment variables</em>.</div></div>
     <div class="step"><div class="step-num">6</div><div class="step-body">In System Properties, click <strong>Environment Variables</strong>.</div></div>
-    <div class="step"><div class="step-num">7</div><div class="step-body">In the Environment Variables window, find the <strong>Path</strong> variable under User variables and click <strong>Edit</strong>.</div></div>
-    <div class="step"><div class="step-num">8</div><div class="step-body">In the Edit Environment Variable window, click <strong>New</strong>.</div></div>
-    <div class="step"><div class="step-num">9</div><div class="step-body">Paste the path you copied in Step 4 and click <strong>OK</strong>.</div></div>
-    <div class="step"><div class="step-num">10</div><div class="step-body">Open <strong>Command Prompt</strong> and type <code>dart</code> then press Enter. If you see Dart usage info, the environment is set correctly.</div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-body">Find the <strong>Path</strong> variable under User variables and click <strong>Edit</strong>.</div></div>
+    <div class="step"><div class="step-num">8</div><div class="step-body">Click <strong>New</strong>, paste the path you copied, and click <strong>OK</strong>.</div></div>
+    <div class="step"><div class="step-num">9</div><div class="step-body">Open <strong>Command Prompt</strong> and type <code>dart</code> then press Enter. If you see Dart usage info, setup is correct.</div></div>
   </div>
+  <div class="warn"><span class="note-label">Important Note</span>If typing <code>dart</code> in CMD doesn't work, navigate to the <code>bin</code> folder manually using CMD commands and type <code>dart</code> from there.</div>
 
-  <div class="warn">
-    <span class="note-label">Important Note</span>
-    If typing <code>dart</code> in CMD doesn't work after closing and reopening CMD, it doesn't mean your environment is broken. Navigate to the <code>bin</code> folder manually using CMD commands and type <code>dart</code> from there.
-  </div>
-
-  <!-- ── IDE Setup ── -->
   <h2><span class="h-tag">05</span> Configure a Text Editor / IDE</h2>
-
   <div class="cmp-grid">
-    <div class="cmp-card blue">
-      <h4>For Beginners</h4>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Two recommended options:</p>
-      <ul>
-        <li><strong style="color:var(--blue)">Dart Pad</strong> &mdash; Free, web-based, no setup needed. Lacks debugging and auto-complete.</li>
-        <li><strong style="color:var(--blue)">VS Code + Dart Plugin</strong> &mdash; Lightweight, free, large community. Great syntax highlighting, code completion, and basic debugging.</li>
-      </ul>
-    </div>
-    <div class="cmp-card acc">
-      <h4>For Advanced Learners</h4>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:10px">More powerful options:</p>
-      <ul>
-        <li><strong style="color:var(--accent)">Android Studio</strong> &mdash; Official Flutter IDE. Advanced debugging, code analysis, refactoring. Resource-intensive.</li>
-        <li><strong style="color:var(--accent)">IntelliJ IDEA (Community)</strong> &mdash; Excellent Dart support, highly customizable. Free edition has some limitations.</li>
-      </ul>
-    </div>
+    <div class="cmp-card blue"><h4>For Beginners</h4><ul><li><strong style="color:var(--blue)">Dart Pad</strong> &mdash; Free, web-based, no setup. Lacks debugging and auto-complete.</li><li><strong style="color:var(--blue)">VS Code + Dart Plugin</strong> &mdash; Lightweight, free. Great syntax highlighting and code completion.</li></ul></div>
+    <div class="cmp-card acc"><h4>For Advanced Learners</h4><ul><li><strong style="color:var(--accent)">Android Studio</strong> &mdash; Official Flutter IDE. Advanced debugging. Resource-intensive.</li><li><strong style="color:var(--accent)">IntelliJ IDEA</strong> &mdash; Excellent Dart support, highly customizable.</li></ul></div>
   </div>
-
   <h3>VS Code Setup &mdash; Step by Step</h3>
   <div class="steps">
-    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Download VS Code</strong> from code.visualstudio.com. Choose the installer for your OS (Windows/macOS/Linux) and run it.</div></div>
-    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Install Dart Plugin</strong>: Open VS Code → Extensions (Ctrl+Shift+X) → Search "Dart" → Install the extension by "Dart Code".</div></div>
-    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Verify Dart SDK</strong>: Open Command Palette (Ctrl+Shift+P) → Search and run <code>Flutter: Doctor</code>. This checks if Dart SDK is installed and path is set correctly.</div></div>
-    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>(Optional) Additional Extensions</strong>: Install <em>Error Lens</em> (inline errors) and <em>Rainbow Brackets</em> (visual nesting).</div></div>
-    <div class="step"><div class="step-num">5</div><div class="step-body"><strong>(Optional) Create First Project</strong>: Command Palette → <code>Dart: New Project</code> → Select "Console Application" → Follow prompts.</div></div>
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Download VS Code</strong> from code.visualstudio.com and run the installer.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Install Dart Plugin</strong>: Extensions (Ctrl+Shift+X) &rarr; Search "Dart" &rarr; Install by "Dart Code".</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Verify Dart SDK</strong>: Command Palette (Ctrl+Shift+P) &rarr; Run <code>Flutter: Doctor</code>.</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>(Optional)</strong> Install <em>Error Lens</em> and <em>Rainbow Brackets</em> extensions.</div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body"><strong>(Optional)</strong> Command Palette &rarr; <code>Dart: New Project</code> &rarr; Console Application.</div></div>
   </div>
 
-  <!-- ── First Code ── -->
   <h2><span class="h-tag">06</span> First Code in Dart</h2>
-
-  <p>In Dart, <code>main()</code> is a predefined method that acts as the <strong>entry point</strong> of the application. Every Dart program must have a <code>main()</code> function.</p>
-
+  <p>In Dart, <code>main()</code> is the <strong>entry point</strong> of the application. Every Dart program must have a <code>main()</code> function.</p>
   <pre><span class="fn">main</span>() {
   <span class="fn">print</span>(<span class="str">"Welcome to Pakistan"</span>);
 }<span class="lang">DART</span></pre>
 
-  <!-- ── Comments ── -->
   <h2><span class="h-tag">07</span> Dart Comments</h2>
-
-  <p>Comments are statements <strong>not executed</strong> by the compiler. They provide documentation and improve code readability for you and other programmers.</p>
-
+  <p>Comments are statements <strong>not executed</strong> by the compiler. They provide documentation and improve code readability.</p>
   <h3>1. Single Line Comment</h3>
-  <p>Starts with <code>//</code> &mdash; comments out everything until the end of that line.</p>
-  <pre><span class="fn">int</span> <span class="fn">main</span>() {
+  <pre><span class="kw">int</span> <span class="fn">main</span>() {
   <span class="kw">double</span> area = <span class="num">3.14</span> * <span class="num">4</span> * <span class="num">4</span>;
-  <span class="cmt">// It prints the area</span>
-  <span class="cmt">// of a circle of radius = 4</span>
+  <span class="cmt">// It prints the area of a circle of radius = 4</span>
   <span class="fn">print</span>(area);
   <span class="kw">return</span> <span class="num">0</span>;
 }<span class="lang">DART</span></pre>
-
   <h3>2. Multi-Line Comment</h3>
-  <p>Starts with <code>/*</code> and ends with <code>*/</code> &mdash; comments out an entire block of code.</p>
-  <pre><span class="fn">int</span> <span class="fn">main</span>() {
+  <pre><span class="kw">int</span> <span class="fn">main</span>() {
   <span class="kw">double</span> area = <span class="num">3.14</span> * <span class="num">4</span> * <span class="num">4</span>;
   <span class="cmt">/* It prints the area
      of a circle of radius = 4 */</span>
   <span class="fn">print</span>(area);
   <span class="kw">return</span> <span class="num">0</span>;
 }<span class="lang">DART</span></pre>
-
   <h3>3. Documentation Comment</h3>
-  <p>Uses <code>///</code> syntax. Special comments used to generate documentation from the code. Can be associated with classes, methods, functions, and variables. Once written, Dart reuses them automatically.</p>
   <pre><span class="cmt">/// Calculates the sum of two numbers.</span>
-<span class="cmt">///</span>
 <span class="cmt">/// [a] and [b] are the numbers to be added.</span>
-<span class="cmt">///</span>
-<span class="cmt">/// Returns the sum of [a] and [b].</span>
 <span class="kw">int</span> <span class="fn">sum</span>(<span class="kw">int</span> a, <span class="kw">int</span> b) {
   <span class="kw">return</span> a + b;
 }<span class="lang">DART</span></pre>
-
   <div class="tbl-wrap">
     <table>
       <thead><tr><th>Type</th><th>Syntax</th><th>Use Case</th></tr></thead>
@@ -646,7 +305,7 @@ td code{background:var(--panel3);border:none;color:var(--dart)}
 </div><!-- /lab1 -->
 
 <!-- ══════════════════════════════════════════════════ -->
-<!--  LAB 2                                             -->
+<!--  FLUTTER LAB 2                                     -->
 <!-- ══════════════════════════════════════════════════ -->
 <div id="lab2" class="tab-content">
 <div class="page">
@@ -654,17 +313,13 @@ td code{background:var(--panel3);border:none;color:var(--dart)}
   <div class="lab-title">Variables &amp; Operators</div>
   <p class="lab-meta">Mobile Application Development &nbsp;&bull;&nbsp; <span>Lab #2 &amp; 3</span> &nbsp;&bull;&nbsp; Department of Technology &nbsp;&bull;&nbsp; The University of Lahore</p>
 
-  <!-- ── Variables ── -->
   <h2><span class="h-tag">01</span> What is a Variable?</h2>
-
   <div class="def-box">
-    A variable is a <strong>named storage location</strong> that holds a value. Think of it as a container or a box where you can store information. Variables are used to store and manipulate data in your Dart programs.
+    A variable is a <strong>named storage location</strong> that holds a value. Think of it as a container or a box where you can store information.
   </div>
-
   <h3>Syntax</h3>
-  <pre><span class="type">type</span> variable_name;           <span class="cmt">// single variable</span>
-<span class="type">type</span> variable1, variable2, variable3;  <span class="cmt">// multiple variables of same type</span><span class="lang">DART</span></pre>
-
+  <pre><span class="type">type</span> variable_name;
+<span class="type">type</span> variable1, variable2, variable3;<span class="lang">DART</span></pre>
   <h3>Data Types</h3>
   <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(140px,1fr))">
     <div class="card"><div class="card-title" style="font-family:monospace;color:var(--blue)">int</div><div class="card-desc">Whole numbers e.g. 8, -3, 100</div></div>
@@ -674,63 +329,33 @@ td code{background:var(--panel3);border:none;color:var(--dart)}
     <div class="card"><div class="card-title" style="font-family:monospace;color:var(--blue)">List</div><div class="card-desc">Ordered collection of values</div></div>
     <div class="card"><div class="card-title" style="font-family:monospace;color:var(--blue)">Map</div><div class="card-desc">Key-value pairs</div></div>
   </div>
-
   <h3>Example</h3>
   <pre><span class="fn">int</span> <span class="fn">main</span>() {
   <span class="type">String</span> txt;
   txt = <span class="str">'First Variable'</span>;
   <span class="fn">print</span>(txt);
-
-  <span class="kw">int</span> t = <span class="num">8</span>;
-  <span class="fn">print</span>(t);
-
-  <span class="kw">double</span> d = <span class="num">8</span>;
-  <span class="fn">print</span>(d);
-
-  <span class="kw">bool</span> b = <span class="kw2">false</span>;
-  <span class="fn">print</span>(b);
-
+  <span class="kw">int</span> t = <span class="num">8</span>;   <span class="fn">print</span>(t);
+  <span class="kw">double</span> d = <span class="num">8</span>; <span class="fn">print</span>(d);
+  <span class="kw">bool</span> b = <span class="kw2">false</span>; <span class="fn">print</span>(b);
   <span class="kw">return</span> <span class="num">0</span>;
 }<span class="lang">DART</span></pre>
 
-  <!-- ── Keywords ── -->
   <h2><span class="h-tag">02</span> Keywords in Dart</h2>
-  <p>Keywords are <strong>reserved words</strong> that cannot be used as variable names or identifiers because their function is predefined in Dart.</p>
-
+  <p>Keywords are <strong>reserved words</strong> that cannot be used as variable names because their function is predefined in Dart.</p>
   <h3>Control Flow</h3>
-  <div class="chip-group">
-    <span class="chip">if</span><span class="chip">else</span><span class="chip">switch</span><span class="chip">case</span><span class="chip">break</span><span class="chip">continue</span><span class="chip">return</span><span class="chip">while</span><span class="chip">do</span><span class="chip">for</span><span class="chip">in</span><span class="chip">await</span><span class="chip">yield</span>
-  </div>
-
+  <div class="chip-group"><span class="chip">if</span><span class="chip">else</span><span class="chip">switch</span><span class="chip">case</span><span class="chip">break</span><span class="chip">continue</span><span class="chip">return</span><span class="chip">while</span><span class="chip">do</span><span class="chip">for</span><span class="chip">in</span><span class="chip">await</span><span class="chip">yield</span></div>
   <h3>Function &amp; Class Declaration</h3>
-  <div class="chip-group">
-    <span class="chip">abstract</span><span class="chip">class</span><span class="chip">const</span><span class="chip">final</span><span class="chip">dynamic</span><span class="chip">extends</span><span class="chip">factory</span><span class="chip">get</span><span class="chip">implements</span><span class="chip">new</span><span class="chip">operator</span><span class="chip">set</span><span class="chip">static</span><span class="chip">super</span><span class="chip">this</span><span class="chip">typedef</span><span class="chip">var</span><span class="chip">void</span>
-  </div>
-
+  <div class="chip-group"><span class="chip">abstract</span><span class="chip">class</span><span class="chip">const</span><span class="chip">final</span><span class="chip">dynamic</span><span class="chip">extends</span><span class="chip">factory</span><span class="chip">get</span><span class="chip">implements</span><span class="chip">new</span><span class="chip">operator</span><span class="chip">set</span><span class="chip">static</span><span class="chip">super</span><span class="chip">this</span><span class="chip">typedef</span><span class="chip">var</span><span class="chip">void</span></div>
   <h3>Error Handling</h3>
-  <div class="chip-group">
-    <span class="chip">assert</span><span class="chip">catch</span><span class="chip">finally</span><span class="chip">rethrow</span><span class="chip">throw</span><span class="chip">try</span>
-  </div>
+  <div class="chip-group"><span class="chip">assert</span><span class="chip">catch</span><span class="chip">finally</span><span class="chip">rethrow</span><span class="chip">throw</span><span class="chip">try</span></div>
 
-  <h3>Other Keywords</h3>
-  <div class="chip-group">
-    <span class="chip">as</span><span class="chip">is</span><span class="chip">part</span><span class="chip">required</span><span class="chip">show</span>
-  </div>
-
-  <h3>Limited Reserved Words (Async)</h3>
-  <div class="chip-group">
-    <span class="chip">async</span><span class="chip">sync*</span>
-  </div>
-
-  <!-- ── Name Restrictions ── -->
   <h2><span class="h-tag">03</span> Variable Name Restrictions</h2>
   <ol>
-    <li>Variable name / identifier <strong>cannot be a keyword</strong>.</li>
+    <li>Variable name <strong>cannot be a keyword</strong>.</li>
     <li>Can contain <strong>alphabets and numbers</strong>.</li>
-    <li>Cannot contain <strong>spaces or special characters</strong>, except underscore <code>_</code> and dollar sign <code>$</code>.</li>
+    <li>Cannot contain <strong>spaces or special characters</strong>, except <code>_</code> and <code>$</code>.</li>
     <li>Cannot <strong>begin with a number</strong>.</li>
   </ol>
-
   <div class="practice">
     <div class="practice-title">Practice &mdash; Valid or Invalid?</div>
     <div class="tbl-wrap">
@@ -738,111 +363,41 @@ td code{background:var(--panel3);border:none;color:var(--dart)}
         <thead><tr><th>#</th><th>Declaration</th><th>Status</th><th>Reason</th></tr></thead>
         <tbody>
           <tr><td>1</td><td><code>int age=1;</code></td><td class="valid">Valid</td><td>Correct int, no issues</td></tr>
-          <tr><td>2</td><td><code>int piValue=0;</code></td><td class="valid">Valid</td><td>Correct name and type</td></tr>
-          <tr><td>3</td><td><code>double dynamicVar=9.9;</code></td><td class="valid">Valid</td><td>Correct double, valid name</td></tr>
-          <tr><td>4</td><td><code>String numberOfMonthsInYear='Pakistan';</code></td><td class="valid">Valid</td><td>Long name is fine</td></tr>
-          <tr><td>5</td><td><code>bool numbers=false;</code></td><td class="valid">Valid</td><td>Correct bool</td></tr>
-          <tr><td>6</td><td><code>int 123abc=4;</code></td><td class="invalid">Invalid</td><td>Starts with a number</td></tr>
-          <tr><td>7</td><td><code>String my-variable='Hello';</code></td><td class="invalid">Invalid</td><td>Hyphen not allowed</td></tr>
-          <tr><td>8</td><td><code>bool const=false;</code></td><td class="invalid">Invalid</td><td><code>const</code> is a keyword</td></tr>
-          <tr><td>9</td><td><code>double new=5.3;</code></td><td class="invalid">Invalid</td><td><code>new</code> is a keyword</td></tr>
-          <tr><td>10</td><td><code>boool if=ture;</code></td><td class="invalid">Invalid</td><td>Wrong type + keyword name</td></tr>
-          <tr><td>11</td><td><code>String user_name='Zeeshan';</code></td><td class="valid">Valid</td><td>Underscore allowed</td></tr>
-          <tr><td>12</td><td><code>double totalAmount$=3.2;</code></td><td class="valid">Valid</td><td>Dollar sign allowed</td></tr>
+          <tr><td>2</td><td><code>double dynamicVar=9.9;</code></td><td class="valid">Valid</td><td>Correct double, valid name</td></tr>
+          <tr><td>3</td><td><code>String user_name='Zeeshan';</code></td><td class="valid">Valid</td><td>Underscore allowed</td></tr>
+          <tr><td>4</td><td><code>double totalAmount$=3.2;</code></td><td class="valid">Valid</td><td>Dollar sign allowed</td></tr>
+          <tr><td>5</td><td><code>int 123abc=4;</code></td><td class="invalid">Invalid</td><td>Starts with a number</td></tr>
+          <tr><td>6</td><td><code>String my-variable='Hello';</code></td><td class="invalid">Invalid</td><td>Hyphen not allowed</td></tr>
+          <tr><td>7</td><td><code>bool const=false;</code></td><td class="invalid">Invalid</td><td><code>const</code> is a keyword</td></tr>
+          <tr><td>8</td><td><code>double new=5.3;</code></td><td class="invalid">Invalid</td><td><code>new</code> is a keyword</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="note">
-    <span class="note-label">Important Note</span>
-    Dart supports <strong>type-checking</strong> &mdash; it verifies whether the data type and the data a variable holds are compatible.
-    <pre style="margin-top:10px"><span class="fn">int</span> <span class="fn">main</span>() {
-  <span class="kw">int</span> t = <span class="num">9</span>;
-  <span class="fn">print</span>(t <span class="kw">is</span> <span class="kw">int</span>);   <span class="cmt">// true</span>
-  <span class="fn">print</span>(t <span class="kw">is!</span> <span class="kw">int</span>);  <span class="cmt">// false</span>
-  <span class="kw">return</span> <span class="num">0</span>;
-}</pre>
-  </div>
-
-  <!-- ── Dynamic ── -->
   <h2><span class="h-tag">04</span> Dynamic Type Variable</h2>
-  <p>The <code>dynamic</code> type can hold values of <strong>any type</strong> and its type can <strong>change at runtime</strong>. When you declare a variable as <code>dynamic</code>, Dart allows assigning different types during execution.</p>
-
-  <pre><span class="kw">dynamic</span> variable_name;  <span class="cmt">// syntax</span><span class="lang">DART</span></pre>
-
+  <p>The <code>dynamic</code> type can hold values of <strong>any type</strong> and its type can <strong>change at runtime</strong>.</p>
   <pre><span class="fn">int</span> <span class="fn">main</span>() {
-  <span class="kw">dynamic</span> data = <span class="str">"Pakistan"</span>;  <span class="cmt">// String</span>
-  data = <span class="num">10</span>;                   <span class="cmt">// Integer — OK</span>
-  data = <span class="str">"Hello"</span>;              <span class="cmt">// String again — OK</span>
-  data = <span class="kw2">true</span>;                  <span class="cmt">// Boolean — OK</span>
+  <span class="kw">dynamic</span> data = <span class="str">"Pakistan"</span>; <span class="cmt">// String</span>
+  data = <span class="num">10</span>;                  <span class="cmt">// Integer — OK</span>
+  data = <span class="kw2">true</span>;                 <span class="cmt">// Boolean — OK</span>
   <span class="fn">print</span>(data);
   <span class="kw">return</span> <span class="num">0</span>;
 }<span class="lang">DART</span></pre>
 
-  <!-- ── var ── -->
   <h2><span class="h-tag">05</span> VAR Type Variable</h2>
-  <p>The <code>var</code> keyword declares variables <strong>without explicitly specifying</strong> their type. Dart <strong>infers</strong> the type from the value assigned at initialization. It provides flexibility while maintaining static typing.</p>
-
-  <pre><span class="kw">var</span> variable_name;  <span class="cmt">// syntax</span><span class="lang">DART</span></pre>
-
-  <pre><span class="fn">int</span> <span class="fn">main</span>() {
-  <span class="kw">var</span> data;
-  data = <span class="num">2</span>;
-  data = <span class="str">"Hello Pakistan"</span>;
-  data = <span class="num">9.9</span>;
-  <span class="fn">print</span>(data);
-  <span class="kw">return</span> <span class="num">0</span>;
-}<span class="lang">DART</span></pre>
-
+  <p>The <code>var</code> keyword declares variables <strong>without explicitly specifying</strong> their type. Dart <strong>infers</strong> the type from the value assigned.</p>
   <div class="warn">
-    <span class="note-label">Important Points &mdash; dynamic vs var</span>
+    <span class="note-label">dynamic vs var</span>
     <ul style="margin-top:8px">
-      <li>If declared as <code>dynamic</code> &rarr; type can change <strong>anytime</strong> during execution.</li>
-      <li>If declared as <code>var</code> (without initialization) &rarr; type can change during execution.</li>
-      <li>If declared as <code>var</code> with a <code>double</code> value &rarr; type can only change to <code>int</code>.</li>
-      <li>If declared as <code>var</code> with an <code>int</code> or any fixed type &rarr; type <strong>cannot change</strong> to any other type.</li>
+      <li><code>dynamic</code> &rarr; type can change <strong>anytime</strong> during execution.</li>
+      <li><code>var</code> without initialization &rarr; type can change during execution.</li>
+      <li><code>var</code> initialized with <code>int</code> &rarr; type <strong>cannot change</strong>.</li>
     </ul>
   </div>
 
-  <pre><span class="cmt">// var initialized with double — only int is acceptable after</span>
-<span class="fn">int</span> <span class="fn">main</span>() {
-  <span class="kw">var</span> data = <span class="num">9.3</span>;
-  data = <span class="num">2</span>;               <span class="cmt">// OK (int)</span>
-  data = <span class="str">"Hello Pakistan"</span>; <span class="cmt">// Error!</span>
-  data = <span class="num">9.9</span>;              <span class="cmt">// OK (double)</span>
-  data = <span class="kw2">false</span>;            <span class="cmt">// Error!</span>
-  data = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];       <span class="cmt">// Error!</span>
-  <span class="kw">return</span> <span class="num">0</span>;
-}<span class="lang">DART</span></pre>
-
-  <!-- ── final / const ── -->
   <h2><span class="h-tag">06</span> Final &amp; Const Variables</h2>
-
-  <p><code>final</code> and <code>const</code> are keywords used to define <strong>constant variables</strong> in Dart. Once defined, their value <strong>cannot be changed</strong>. Both can be used with or without a data type.</p>
-
-  <div class="two-col">
-    <pre><span class="cmt">// Syntax for final</span>
-<span class="kw">final</span> variable_name
-<span class="kw">final</span> data_type variable_name<span class="lang">DART</span></pre>
-    <pre><span class="cmt">// Syntax for const</span>
-<span class="kw">const</span> variable_name
-<span class="kw">const</span> data_type variable_name<span class="lang">DART</span></pre>
-  </div>
-
-  <pre><span class="fn">int</span> <span class="fn">main</span>() {
-  <span class="kw">final</span> <span class="kw">int</span> t = <span class="num">9</span>;
-  <span class="fn">print</span>(t);
-  <span class="cmt">// t = 8;  ← Error! Cannot reassign final</span>
-
-  <span class="kw">const</span> <span class="kw">double</span> d = <span class="num">9.9</span>;
-  <span class="cmt">// d = 5.3;  ← Error! Cannot reassign const</span>
-  <span class="kw">return</span> <span class="num">0</span>;
-}<span class="lang">DART</span></pre>
-
-  <pre><span class="kw">final</span> <span class="kw">int</span> myFinalVariable = <span class="fn">calculateValue</span>();  <span class="cmt">// initialized at RUNTIME</span>
-<span class="kw">const</span> <span class="kw">int</span> myConstVariable = <span class="num">42</span>;               <span class="cmt">// must be known at COMPILE-TIME</span><span class="lang">DART</span></pre>
-
+  <p>Once defined, their value <strong>cannot be changed</strong>.</p>
   <div class="tbl-wrap">
     <table>
       <thead><tr><th>Feature</th><th>final</th><th>const</th></tr></thead>
@@ -850,234 +405,79 @@ td code{background:var(--panel3);border:none;color:var(--dart)}
         <tr><td>Reassignment</td><td>Once (set at runtime)</td><td class="invalid">Not Allowed</td></tr>
         <tr><td>Value Known at Compile Time</td><td>Not Necessarily</td><td class="valid">Yes</td></tr>
         <tr><td>Mutability</td><td>Can hold mutable objects</td><td>Immutable</td></tr>
-        <tr><td>Use Cases</td><td>Consistent, computed values</td><td>True constants</td></tr>
       </tbody>
     </table>
   </div>
+  <pre><span class="fn">int</span> <span class="fn">main</span>() {
+  <span class="kw">final</span> <span class="kw">int</span> t = <span class="num">9</span>;
+  <span class="fn">print</span>(t);
+  <span class="cmt">// t = 8;  &larr; Error! Cannot reassign final</span>
+  <span class="kw">const</span> <span class="kw">double</span> d = <span class="num">9.9</span>;
+  <span class="cmt">// d = 5.3; &larr; Error! Cannot reassign const</span>
+  <span class="kw">return</span> <span class="num">0</span>;
+}<span class="lang">DART</span></pre>
 
-  <!-- ── Operators ── -->
   <h2><span class="h-tag">07</span> Operators in Dart</h2>
-  <p>Operators are special symbols used to carry out operations on operands. Dart has numerous built-in operators for different functions.</p>
-
   <div class="chip-group" style="margin-bottom:20px">
-    <span class="chip" style="color:var(--blue)">1. Arithmetic</span>
-    <span class="chip" style="color:var(--blue)">2. Relational</span>
-    <span class="chip" style="color:var(--blue)">3. Type Test</span>
-    <span class="chip" style="color:var(--blue)">4. Bitwise</span>
-    <span class="chip" style="color:var(--blue)">5. Assignment</span>
-    <span class="chip" style="color:var(--blue)">6. Logical</span>
-    <span class="chip" style="color:var(--blue)">7. Conditional</span>
-    <span class="chip" style="color:var(--blue)">8. Cascade</span>
+    <span class="chip" style="color:var(--blue)">1. Arithmetic</span><span class="chip" style="color:var(--blue)">2. Relational</span><span class="chip" style="color:var(--blue)">3. Type Test</span><span class="chip" style="color:var(--blue)">4. Bitwise</span><span class="chip" style="color:var(--blue)">5. Assignment</span><span class="chip" style="color:var(--blue)">6. Logical</span><span class="chip" style="color:var(--blue)">7. Conditional</span><span class="chip" style="color:var(--blue)">8. Cascade</span>
   </div>
-
-  <!-- 1. Arithmetic -->
   <h3>1. Arithmetic Operators</h3>
-  <p>Binary operators &mdash; act on two operands to perform arithmetic operations.</p>
   <div class="tbl-wrap">
     <table>
       <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
       <tbody>
         <tr><td><span class="sym">+</span></td><td>Addition</td><td>Add two operands</td></tr>
         <tr><td><span class="sym">-</span></td><td>Subtraction</td><td>Subtract two operands</td></tr>
-        <tr><td><span class="sym">-Expr</span></td><td>Unary Minus</td><td>Reverse the sign of an expression</td></tr>
         <tr><td><span class="sym">*</span></td><td>Multiply</td><td>Multiply two operands</td></tr>
-        <tr><td><span class="sym">/</span></td><td>Division</td><td>Divide two operands &mdash; output is <strong>double</strong></td></tr>
-        <tr><td><span class="sym">~/</span></td><td>Integer Division</td><td>Divide two operands &mdash; output is <strong>int</strong></td></tr>
+        <tr><td><span class="sym">/</span></td><td>Division</td><td>Output is <strong>double</strong></td></tr>
+        <tr><td><span class="sym">~/</span></td><td>Integer Division</td><td>Output is <strong>int</strong></td></tr>
         <tr><td><span class="sym">%</span></td><td>Modulus</td><td>Remainder after division</td></tr>
       </tbody>
     </table>
   </div>
-
-  <pre><span class="kw">void</span> <span class="fn">main</span>() {
-  <span class="kw">int</span> a = <span class="num">2</span>, b = <span class="num">3</span>;
-  <span class="kw">var</span> c = a + b;  <span class="fn">print</span>(<span class="str">"Sum: $c"</span>);
-  <span class="kw">var</span> d = a - b;  <span class="fn">print</span>(<span class="str">"Difference: $d"</span>);
-  <span class="kw">var</span> e = -d;     <span class="fn">print</span>(<span class="str">"Negation: $e"</span>);
-  <span class="kw">var</span> f = a * b;  <span class="fn">print</span>(<span class="str">"Product: $f"</span>);
-  <span class="kw">var</span> g = b / a;  <span class="fn">print</span>(<span class="str">"Division (double): $g"</span>);
-  <span class="kw">var</span> h = b ~/ a; <span class="fn">print</span>(<span class="str">"Division (int): $h"</span>);
-  <span class="kw">var</span> i = b % a;  <span class="fn">print</span>(<span class="str">"Remainder: $i"</span>);
-}<span class="lang">DART</span></pre>
-
-  <!-- 2. Relational -->
   <h3>2. Relational Operators</h3>
-  <p>Used to compare two operands. Always return a <strong>boolean</strong> result.</p>
   <div class="tbl-wrap">
     <table>
-      <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
+      <thead><tr><th>Symbol</th><th>Name</th></tr></thead>
       <tbody>
-        <tr><td><span class="sym">&gt;</span></td><td>Greater than</td><td>Returns true if left operand is bigger</td></tr>
-        <tr><td><span class="sym">&lt;</span></td><td>Less than</td><td>Returns true if left operand is smaller</td></tr>
-        <tr><td><span class="sym">&gt;=</span></td><td>Greater than or equal to</td><td>Returns true if left is greater or equal</td></tr>
-        <tr><td><span class="sym">&lt;=</span></td><td>Less than or equal to</td><td>Returns true if left is smaller or equal</td></tr>
-        <tr><td><span class="sym">==</span></td><td>Equal to</td><td>Returns true if both operands are equal</td></tr>
-        <tr><td><span class="sym">!=</span></td><td>Not equal to</td><td>Returns true if operands are NOT equal</td></tr>
+        <tr><td><span class="sym">&gt;</span></td><td>Greater than</td></tr>
+        <tr><td><span class="sym">&lt;</span></td><td>Less than</td></tr>
+        <tr><td><span class="sym">&gt;=</span></td><td>Greater than or equal to</td></tr>
+        <tr><td><span class="sym">&lt;=</span></td><td>Less than or equal to</td></tr>
+        <tr><td><span class="sym">==</span></td><td>Equal to</td></tr>
+        <tr><td><span class="sym">!=</span></td><td>Not equal to</td></tr>
       </tbody>
     </table>
   </div>
-
-  <!-- 3. Type Test -->
-  <h3>3. Type Test Operators</h3>
-  <p>Used to compare/check types of operands at runtime.</p>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td><span class="sym">is</span></td><td>is</td><td>Returns <code>true</code> if object has the specified type</td></tr>
-        <tr><td><span class="sym">is!</span></td><td>is not</td><td>Returns <code>false</code> if object has the specified type</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <pre><span class="kw">void</span> <span class="fn">main</span>() {
-  <span class="type">String</span> a = <span class="str">'GFG'</span>;
-  <span class="kw">double</span> b = <span class="num">3.3</span>;
-  <span class="fn">print</span>(a <span class="kw">is</span> <span class="type">String</span>);  <span class="cmt">// true</span>
-  <span class="fn">print</span>(b <span class="kw">is!</span> <span class="kw">int</span>);    <span class="cmt">// true</span>
-}<span class="lang">DART</span></pre>
-
-  <!-- 4. Bitwise -->
-  <h3>4. Bitwise Operators</h3>
-  <p>Perform bitwise operations directly on the binary representation of integers.</p>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td><span class="sym">&amp;</span></td><td>Bitwise AND</td><td>Performs AND on each bit of two operands</td></tr>
-        <tr><td><span class="sym">|</span></td><td>Bitwise OR</td><td>Performs OR on each bit of two operands</td></tr>
-        <tr><td><span class="sym">^</span></td><td>Bitwise XOR</td><td>Performs XOR on each bit of two operands</td></tr>
-        <tr><td><span class="sym">~</span></td><td>Bitwise NOT</td><td>Inverts all bits of the operand</td></tr>
-        <tr><td><span class="sym">&lt;&lt;</span></td><td>Left Shift</td><td>Shifts bits to the left by b positions, inserts 0 from right</td></tr>
-        <tr><td><span class="sym">&gt;&gt;</span></td><td>Right Shift</td><td>Shifts bits to the right by b positions, inserts 0 from left</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <pre><span class="kw">void</span> <span class="fn">main</span>() {
-  <span class="kw">int</span> a = <span class="num">5</span>, b = <span class="num">7</span>;
-  <span class="fn">print</span>(a &amp; b);   <span class="cmt">// Bitwise AND</span>
-  <span class="fn">print</span>(a | b);   <span class="cmt">// Bitwise OR</span>
-  <span class="fn">print</span>(a ^ b);   <span class="cmt">// Bitwise XOR</span>
-  <span class="fn">print</span>(~a);      <span class="cmt">// Bitwise NOT</span>
-  <span class="fn">print</span>(a &lt;&lt; b);  <span class="cmt">// Left Shift: 101(a) moved 7 bits left</span>
-  <span class="fn">print</span>(a &gt;&gt; b);  <span class="cmt">// Right Shift</span>
-}<span class="lang">DART</span></pre>
-
-  <!-- 5. Assignment -->
-  <h3>5. Assignment Operators</h3>
-  <p>Used to assign values to variables.</p>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td><span class="sym">=</span></td><td>Equal To</td><td>Assign a value to a variable</td></tr>
-        <tr><td><span class="sym">??=</span></td><td>Null-aware Assignment</td><td>Assign value only if variable is <code>null</code></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <pre><span class="kw">void</span> <span class="fn">main</span>() {
-  <span class="kw">int</span> a = <span class="num">5</span>, b = <span class="num">7</span>;
-  <span class="kw">var</span> c = a * b;
-  <span class="fn">print</span>(c);           <span class="cmt">// 35</span>
-
-  <span class="kw">var</span> d;
-  d ??= a + b;        <span class="cmt">// d is null, so assigned = 12</span>
-  <span class="fn">print</span>(d);           <span class="cmt">// 12</span>
-
-  d ??= a - b;        <span class="cmt">// d is NOT null, NOT reassigned</span>
-  <span class="fn">print</span>(d);           <span class="cmt">// still 12</span>
-}<span class="lang">DART</span></pre>
-
-  <!-- 6. Logical -->
-  <h3>6. Logical Operators</h3>
-  <p>Used to logically combine two or more conditions.</p>
+  <h3>3. Logical Operators</h3>
   <div class="tbl-wrap">
     <table>
       <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
       <tbody>
         <tr><td><span class="sym">&amp;&amp;</span></td><td>AND</td><td>Returns <code>true</code> if <strong>both</strong> conditions are true</td></tr>
-        <tr><td><span class="sym">||</span></td><td>OR</td><td>Returns <code>true</code> if <strong>at least one</strong> condition is true</td></tr>
-        <tr><td><span class="sym">!</span></td><td>NOT</td><td>Reverses the result of a condition</td></tr>
+        <tr><td><span class="sym">||</span></td><td>OR</td><td>Returns <code>true</code> if <strong>at least one</strong> is true</td></tr>
+        <tr><td><span class="sym">!</span></td><td>NOT</td><td>Reverses the result</td></tr>
       </tbody>
     </table>
   </div>
-
-  <pre><span class="kw">void</span> <span class="fn">main</span>() {
-  <span class="kw">int</span> a = <span class="num">5</span>, b = <span class="num">7</span>;
-  <span class="kw">bool</span> c = a &gt; <span class="num">10</span> &amp;&amp; b &lt; <span class="num">10</span>;  <span class="cmt">// AND — false (a is not > 10)</span>
-  <span class="fn">print</span>(c);
-  <span class="kw">bool</span> d = a &gt; <span class="num">10</span> || b &lt; <span class="num">10</span>;  <span class="cmt">// OR — true (b < 10)</span>
-  <span class="fn">print</span>(d);
-  <span class="kw">bool</span> e = !(a &gt; <span class="num">10</span>);          <span class="cmt">// NOT — true</span>
-  <span class="fn">print</span>(e);
-}<span class="lang">DART</span></pre>
-
-  <!-- 7. Conditional -->
-  <h3>7. Conditional Operators</h3>
+  <h3>4. Conditional Operators</h3>
   <div class="tbl-wrap">
     <table>
       <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
       <tbody>
-        <tr>
-          <td><span class="sym">condition ? expr1 : expr2</span></td>
-          <td>Ternary Operator</td>
-          <td>If condition is <code>true</code> → execute <code>expr1</code>, else → execute <code>expr2</code></td>
-        </tr>
-        <tr>
-          <td><span class="sym">expr1 ?? expr2</span></td>
-          <td>Null-coalescing</td>
-          <td>If <code>expr1</code> is non-null → return its value, else → return <code>expr2</code></td>
-        </tr>
+        <tr><td><span class="sym">condition ? expr1 : expr2</span></td><td>Ternary</td><td>If true &rarr; expr1, else &rarr; expr2</td></tr>
+        <tr><td><span class="sym">expr1 ?? expr2</span></td><td>Null-coalescing</td><td>If expr1 non-null &rarr; return it, else &rarr; expr2</td></tr>
+        <tr><td><span class="sym">??=</span></td><td>Null-aware Assignment</td><td>Assign only if variable is null</td></tr>
       </tbody>
     </table>
   </div>
-
-  <pre><span class="kw">void</span> <span class="fn">main</span>() {
-  <span class="kw">int</span> a = <span class="num">5</span>;
-  <span class="cmt">// Ternary</span>
-  <span class="kw">var</span> c = (a &lt; <span class="num">10</span>) ? <span class="str">"The University of Lahore"</span> : <span class="str">"Information Eng. Tech"</span>;
-  <span class="fn">print</span>(c);  <span class="cmt">// "The University of Lahore"</span>
-
-  <span class="cmt">// Null-aware</span>
-  <span class="kw">int</span>? n;    <span class="cmt">// nullable int, holds null</span>
-  <span class="kw">var</span> d = n ?? <span class="str">"n has Null value"</span>;
-  <span class="fn">print</span>(d);  <span class="cmt">// "n has Null value"</span>
-
-  <span class="kw">var</span> t = <span class="num">2</span> ?? <span class="str">"Pakistan"</span>;
-  <span class="fn">print</span>(t);  <span class="cmt">// 2 (non-null, so returns itself)</span>
-}<span class="lang">DART</span></pre>
-
-  <!-- 8. Cascade -->
-  <h3>8. Cascade Notation Operator</h3>
-  <p>Allows performing a <strong>sequence of operations on the same object</strong>. Instead of calling multiple methods one-by-one, you chain them with <code>..</code>.</p>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Symbol</th><th>Name</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td><span class="sym">..</span></td><td>Cascading Method</td><td>Perform multiple methods on the same object</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <pre><span class="kw">class</span> <span class="type">test</span> {
-  <span class="kw">var</span> a, b;
-  <span class="kw">void</span> <span class="fn">set</span>(x, y) { <span class="kw">this</span>.a = x; <span class="kw">this</span>.b = y; }
-  <span class="kw">void</span> <span class="fn">add</span>() { <span class="fn">print</span>(<span class="kw">this</span>.a + <span class="kw">this</span>.b); }
-}
-
-<span class="kw">void</span> <span class="fn">main</span>() {
-  <span class="type">test</span> geek1 = <span class="kw">new</span> <span class="fn">test</span>();
-  <span class="cmt">// Without cascade:</span>
-  geek1.<span class="fn">set</span>(<span class="num">1</span>, <span class="num">2</span>);
-  geek1.<span class="fn">add</span>();
-
-  <span class="type">test</span> geek2 = <span class="kw">new</span> <span class="fn">test</span>();
-  <span class="cmt">// With cascade notation:</span>
-  geek2
-    ..<span class="fn">set</span>(<span class="num">3</span>, <span class="num">4</span>)
-    ..<span class="fn">add</span>();
-}<span class="lang">DART</span></pre>
+  <h3>5. Cascade Notation (..) </h3>
+  <p>Allows performing a <strong>sequence of operations on the same object</strong>.</p>
+  <pre><span class="type">test</span> geek = <span class="kw">new</span> <span class="fn">test</span>();
+<span class="cmt">// With cascade:</span>
+geek
+  ..<span class="fn">set</span>(<span class="num">3</span>, <span class="num">4</span>)
+  ..<span class="fn">add</span>();<span class="lang">DART</span></pre>
 
   <div class="practice">
     <div class="practice-title">Practice Questions</div>
@@ -1085,15 +485,9 @@ td code{background:var(--panel3);border:none;color:var(--dart)}
       <li>Write a Dart program that calculates integer division between two numbers and prints the quotient.</li>
       <li>Write a Dart program that takes an integer and prints its negative value using the unary minus operator.</li>
       <li>Write a Dart program that compares two numbers and prints whether the first is less than or equal to the second.</li>
-      <li>Write a Dart program that compares two numbers and prints whether they are equal.</li>
-      <li>Write a Dart program that compares two numbers and prints whether they are not equal.</li>
-      <li>Write a Dart program that initializes a variable with a default value and updates it only if it is null.</li>
       <li>Write a Dart program that checks if a person is eligible to vote (age &ge; 18 AND is a citizen) using logical operators.</li>
-      <li>Write a Dart program that checks if a user is eligible for a discount (premium member OR purchase &gt; $100).</li>
-      <li>Write a Dart program that checks if a user has NOT subscribed to a newsletter and prints a promotional offer only if not subscribed.</li>
       <li>Write a Dart program that determines whether a number is positive or negative using the ternary operator.</li>
       <li>Write a Dart program that determines whether a number is even or odd using the ternary operator.</li>
-      <li>Write a Dart program that checks if a person is eligible to vote (age &ge; 18) using the ternary operator.</li>
       <li>Write a Dart program that checks if a user is eligible for a discount on a purchase using the ternary operator.</li>
     </ol>
   </div>
@@ -1101,13 +495,682 @@ td code{background:var(--panel3);border:none;color:var(--dart)}
 </div>
 </div><!-- /lab2 -->
 
+<!-- ══════════════════════════════════════════════════ -->
+<!--  AI  LEC 1  &mdash;  Machine Learning Introduction -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="ai-lec1" class="tab-content">
+<div class="page">
+
+  <div class="ai-title">Machine Learning &mdash; Lecture 1</div>
+  <p class="lab-meta">Artificial Intelligence &nbsp;&bull;&nbsp; <span class="ai">Lecture #1</span> &nbsp;&bull;&nbsp; Dr. Syed M Hamedoon &nbsp;&bull;&nbsp; UOL</p>
+
+  <h2><span class="h-tag ai">01</span> What is Machine Learning?</h2>
+  <div class="def-box ai">
+    <strong>Machine Learning (ML)</strong> is defined as a discipline of Artificial Intelligence (AI) that provides machines the ability to <strong>automatically learn from data and past experiences</strong> to identify patterns and make predictions with <strong>minimal human intervention</strong>.
+  </div>
+  <p>Machine Learning is a branch of computer science where you use <strong>statistical techniques to find patterns in your data</strong>.</p>
+  <div class="note ai">
+    <span class="note-label">ML vs Deep Learning</span>
+    In <strong>ML</strong> you have to create features manually. In <strong>Deep Learning (DL)</strong> it automatically creates features.
+  </div>
+
+  <h2><span class="h-tag ai">02</span> Applications of Machine Learning</h2>
+  <div class="cards">
+    <div class="card"><div class="card-title" style="color:var(--ai)">Computational Finance</div><div class="card-desc">Credit scoring, algorithmic trading</div></div>
+    <div class="card"><div class="card-title" style="color:var(--ai)">Computer Vision</div><div class="card-desc">Facial recognition, motion tracking, object detection</div></div>
+    <div class="card"><div class="card-title" style="color:var(--ai)">Computational Biology</div><div class="card-desc">DNA sequencing, brain tumor detection, drug discovery</div></div>
+    <div class="card"><div class="card-title" style="color:var(--ai)">Automotive &amp; Aerospace</div><div class="card-desc">Predictive maintenance in manufacturing</div></div>
+    <div class="card"><div class="card-title" style="color:var(--ai)">Natural Language Processing</div><div class="card-desc">Voice recognition, language translation</div></div>
+    <div class="card"><div class="card-title" style="color:var(--ai)">Generative AI</div><div class="card-desc">ChatGPT, self-driving cars, credit scoring</div></div>
+  </div>
+
+  <h2><span class="h-tag ai">03</span> How ML is Superior?</h2>
+  <div class="def-box ai">
+    By <strong>identifying patterns in vast datasets</strong>, ML algorithms can make predictions or decisions <strong>without being explicitly programmed</strong> to perform specific tasks. This distinguishes ML from traditional software, where outcomes are predetermined by a set of rules.
+  </div>
+
+  <h2><span class="h-tag ai">04</span> AI vs Machine Learning vs Deep Learning</h2>
+  <div class="cmp-grid">
+    <div class="cmp-card ai"><h4>Artificial Intelligence</h4><ul><li>The broadest concept</li><li>Machines capable of performing tasks in a way we would consider "smart"</li><li>Programs with the ability to learn and reason like humans</li></ul></div>
+    <div class="cmp-card blue"><h4>Machine Learning</h4><ul><li>A <strong>subset of AI</strong></li><li>Algorithms enabling computers to learn from and make data-based decisions</li><li>Example: clustering customers based on purchasing behaviors</li></ul></div>
+  </div>
+  <div class="note ai">
+    <span class="note-label">Deep Learning</span>
+    A <strong>subset of ML</strong> that uses neural networks with many layers (hence "deep") to analyze patterns in data, mimicking the human brain's approach to learning. Deep learning is responsible for ChatGPT and self-driving cars. It is a class of algorithms <strong>inspired by biological neurons</strong>.
+  </div>
+  <p>The relationship forms a nested hierarchy: <span class="hl-ai">AI &gt; ML &gt; Deep Learning &gt; Data Science</span>. Each is a subset of the one above it.</p>
+
+  <h2><span class="h-tag ai">05</span> How Does Machine Learning Work?</h2>
+  <div class="steps">
+    <div class="step"><div class="step-num ai">1</div><div class="step-body">Collect <strong class="ai">Training Data</strong> &mdash; historical data with known inputs and outputs.</div></div>
+    <div class="step"><div class="step-num ai">2</div><div class="step-body"><strong class="ai">Train the ML Algorithm</strong> &mdash; the algorithm is molded on the training dataset to create a model.</div></div>
+    <div class="step"><div class="step-num ai">3</div><div class="step-body">Feed <strong class="ai">New Input Data</strong> into the trained ML algorithm.</div></div>
+    <div class="step"><div class="step-num ai">4</div><div class="step-body">The model produces a <strong class="ai">Prediction</strong>.</div></div>
+    <div class="step"><div class="step-num ai">5</div><div class="step-body">Check <strong class="ai">Accuracy</strong> &mdash; if acceptable, deploy as a successful model; if unacceptable, re-train with augmented data.</div></div>
+  </div>
+
+  <h2><span class="h-tag ai">06</span> Types of Machine Learning</h2>
+  <div class="cmp-grid">
+    <div class="cmp-card ai"><h4>Supervised Learning</h4><ul><li>Trained on labeled datasets</li><li>Inputs and outputs are known</li><li>Goal: map input variable to output variable</li></ul></div>
+    <div class="cmp-card blue"><h4>Unsupervised Learning</h4><ul><li>No labeled data</li><li>Finds hidden patterns or groupings</li><li>Example: customer segmentation</li></ul></div>
+    <div class="cmp-card green"><h4>Semi-Supervised Learning</h4><ul><li>Mix of labeled and unlabeled data</li><li>Cheaper to acquire than fully labeled data</li></ul></div>
+    <div class="cmp-card acc"><h4>Reinforcement Learning</h4><ul><li>Agent learns by interacting with environment</li><li>Receives rewards/penalties</li><li>Example: game playing AI</li></ul></div>
+  </div>
+
+  <h2><span class="h-tag ai">07</span> Deep Learning vs Machine Learning</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th class="ai">Factor</th><th class="ai">Machine Learning</th><th class="ai">Deep Learning</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Data Dependency</strong></td>
+          <td>Works well with <strong>less data</strong>. Performance plateaus as data increases.</td>
+          <td><strong>Data hungry</strong>. Performance keeps improving as more data is added.</td>
+        </tr>
+        <tr>
+          <td><strong>Hardware Dependency</strong></td>
+          <td>Can run on CPU without issues.</td>
+          <td>Requires <strong>GPU</strong> (Graphical Processing Unit) due to heavy matrix multiplication.</td>
+        </tr>
+        <tr>
+          <td><strong>Training Time</strong></td>
+          <td>Training is relatively fast.</td>
+          <td>Training time is <strong>high</strong> &mdash; can take weeks or months.</td>
+        </tr>
+        <tr>
+          <td><strong>Feature Selection</strong></td>
+          <td>You must <strong>manually create features</strong> (e.g., number of courses, marks in semesters).</td>
+          <td>DL models <strong>extract features automatically</strong> from raw data.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2><span class="h-tag ai">08</span> Supervised Machine Learning</h2>
+  <div class="def-box ai">
+    A paradigm in ML where algorithms <strong>learn the relationships between input data and outcomes</strong>. The algorithm is trained on labeled datasets and enabled to predict outputs based on the provided training. The <strong>primary objective: map the input variable to the output variable</strong>.
+  </div>
+  <h3 class="ai-h">Real-World Example</h3>
+  <div class="note ai">
+    <span class="note-label">Student Placement Prediction</span>
+    Dataset of 5000 students.<br>
+    <strong>Input:</strong> IQ, CGPA &nbsp;&nbsp; <strong>Output:</strong> Placement (Yes / No)<br>
+    The model learns the relationship between IQ + CGPA and Placement. In the future, when asked with IQ=85 and CGPA=3.1, it predicts whether the student gets placed.
+  </div>
+
+  <h2><span class="h-tag ai">09</span> Types of Supervised ML</h2>
+  <div class="two-col">
+    <div class="cmp-card blue">
+      <h4>Regression</h4>
+      <ul>
+        <li>Target variable is <strong>continuous</strong> (numerical)</li>
+        <li>Predicts a quantity</li>
+        <li>Examples: house price, salary, marks</li>
+      </ul>
+    </div>
+    <div class="cmp-card ai">
+      <h4>Classification</h4>
+      <ul>
+        <li>Target variable is <strong>categorical</strong></li>
+        <li>Predicts a class/label</li>
+        <li>Examples: spam/not spam, pass/fail, Yes/No</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</div><!-- /ai-lec1 -->
+
+<!-- ══════════════════════════════════════════════════ -->
+<!--  AI  LAB 1  &mdash;  Setup &amp; Libraries         -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="ai-lab1" class="tab-content">
+<div class="page">
+
+  <div class="ai-title">Python Setup &amp; Libraries</div>
+  <p class="lab-meta">Artificial Intelligence &nbsp;&bull;&nbsp; <span class="ai">Lab #1</span> &nbsp;&bull;&nbsp; Dr. Syed M Hamedoon &nbsp;&bull;&nbsp; UOL</p>
+
+  <h2><span class="h-tag ai">01</span> How to Use Python in VS Code</h2>
+  <div class="steps">
+    <div class="step"><div class="step-num ai">1</div><div class="step-body"><strong class="ai">Create virtual environment</strong><pre style="margin-top:8px">python -m venv venv<span class="lang">CMD</span></pre></div></div>
+    <div class="step"><div class="step-num ai">2</div><div class="step-body"><strong class="ai">Activate the environment</strong><pre style="margin-top:8px">venv\Scripts\activate<span class="lang">CMD</span></pre></div></div>
+    <div class="step"><div class="step-num ai">3</div><div class="step-body"><strong class="ai">Select Environment in VS Code</strong> &mdash; Open project folder &rarr; Ctrl+Shift+P &rarr; <em>Python: Select Interpreter</em> &rarr; choose your newly created environment (venv or myenv).</div></div>
+    <div class="step"><div class="step-num ai">4</div><div class="step-body"><strong class="ai">Install Libraries</strong> (see section below).</div></div>
+  </div>
+
+  <h2><span class="h-tag ai">02</span> Machine Learning Libraries</h2>
+  <h3 class="ai-h">ML Libraries</h3>
+  <pre>pip install --upgrade pip
+pip install pandas
+pip install matplotlib
+pip install seaborn
+pip install scikit-learn
+pip install scipy
+pip install numpy
+pip install xgboost
+pip install lightgbm
+pip install catboost<span class="lang">CMD</span></pre>
+  <h3 class="ai-h">Deep Learning Libraries</h3>
+  <pre>pip install tensorflow
+pip install keras
+pip install torch<span class="lang">CMD</span></pre>
+  <div class="note ai">
+    <span class="note-label">What is a Library?</span>
+    In programming, a library is a <strong>collection of precompiled codes</strong> that can be used in a program for specific well-defined operations. It may also contain documentation, configuration data, message templates, classes, and values. We use libraries so we <strong>don't need to write code that is already available</strong>.
+  </div>
+
+  <h2><span class="h-tag ai">03</span> Key Libraries Explained</h2>
+  <div class="cmp-grid">
+    <div class="cmp-card ai">
+      <h4>TensorFlow</h4>
+      <ul>
+        <li>Developed by <strong>Google + Brain Team</strong></li>
+        <li>Open-source library for high-level computations</li>
+        <li>Used in ML and DL algorithms</li>
+        <li>Contains a large number of tensor operations</li>
+        <li>Also used in Mathematics and Physics research</li>
+      </ul>
+    </div>
+    <div class="cmp-card blue">
+      <h4>Matplotlib</h4>
+      <ul>
+        <li>Responsible for <strong>plotting numerical data</strong></li>
+        <li>Open-source visualization library</li>
+        <li>Creates pie charts, histograms, scatterplots, graphs</li>
+        <li>Essential for data analysis and presentation</li>
+      </ul>
+    </div>
+    <div class="cmp-card dart">
+      <h4>Pandas</h4>
+      <ul>
+        <li>Important library for <strong>data scientists</strong></li>
+        <li>Flexible high-level data structures</li>
+        <li>Supports: Sorting, Re-indexing, Iteration, Concatenation, Conversion, Visualizations, Aggregations</li>
+        <li>Eases data analysis, manipulation, and cleaning</li>
+      </ul>
+    </div>
+    <div class="cmp-card green">
+      <h4>Scikit-learn</h4>
+      <ul>
+        <li>Famous library for working with complex data</li>
+        <li>Supports supervised and unsupervised algorithms</li>
+        <li>Includes: linear regression, classification, clustering</li>
+        <li>Works in association with Numpy and SciPy</li>
+      </ul>
+    </div>
+    <div class="cmp-card acc">
+      <h4>PyTorch</h4>
+      <ul>
+        <li>The <strong>largest ML library</strong></li>
+        <li>Optimizes tensor computations</li>
+        <li>Rich APIs with strong GPU acceleration</li>
+        <li>Helps solve neural network application issues</li>
+      </ul>
+    </div>
+    <div class="cmp-card blue">
+      <h4>Scrapy</h4>
+      <ul>
+        <li>Open-source library for <strong>web scraping</strong></li>
+        <li>Fast web crawling and screen scraping</li>
+        <li>Used for data mining and automated testing</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note ai">
+    <span class="note-label">PyBrain</span>
+    <strong>PyBrain</strong> = Python Based Reinforcement Learning, Artificial Intelligence, and Neural Networks library. Open-source library built for <strong>beginners</strong> in Machine Learning. Provides fast and easy-to-use algorithms. Flexible and easily understandable for developers new to research fields.
+  </div>
+
+  <h2><span class="h-tag ai">04</span> Google Colab</h2>
+  <div class="def-box ai">
+    Google Colab is a <strong>free Jupyter notebook environment that runs entirely in the cloud</strong>. It does not require any setup and notebooks can be simultaneously edited by team members &mdash; just like Google Docs.
+  </div>
+  <div class="cmp-grid">
+    <div class="cmp-card ai">
+      <h4>Key Features</h4>
+      <ul>
+        <li>Runs in the cloud &mdash; no local installation needed</li>
+        <li>Supports many popular ML libraries</li>
+        <li>Free access to <strong>GPU</strong></li>
+        <li>Collaborative editing like Google Docs</li>
+        <li>Academic standard for teaching ML/Data Science</li>
+      </ul>
+    </div>
+    <div class="cmp-card green">
+      <h4>Getting Started</h4>
+      <ul>
+        <li>Open <code>colab.research.google.com</code> (must be signed into Google)</li>
+        <li>Click <strong>New Notebook</strong></li>
+        <li>Rename notebook by clicking the title</li>
+        <li>Add code cells and run them</li>
+        <li>Save to Google Drive automatically</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2><span class="h-tag ai">05</span> Lab Assignment No. 1</h2>
+  <div class="practice">
+    <div class="practice-title">Tasks</div>
+    <ol>
+      <li><strong>Q1:</strong> Create a dataset of at least 10 students with columns: Student_ID, Name, Age, Marks_Math, Marks_Science. Store as <code>students.csv</code>.</li>
+      <li><strong>Q2:</strong> Use Pandas to load the dataset: <code>pd.read_csv("students.csv")</code>.</li>
+      <li><strong>Q3:</strong> Run and explain: <code>data.info()</code>, <code>data.describe()</code>, <code>data['Marks_Math'].mean()</code>, <code>data['Marks_Science'].max()</code>.</li>
+      <li><strong>Q4:</strong> Find how many students have Marks_Math &gt; 50. Find the student with the highest Science marks. Calculate correlation between Math and Science marks.</li>
+      <li><strong>Q5:</strong> Use Matplotlib/Seaborn to create: (a) bar chart of Student_ID vs Marks_Math, (b) histogram of Age, (c) scatter plot of Marks_Math vs Marks_Science.</li>
+      <li><strong>Q6:</strong> Save notebook as <code>Lab1_Assignment.ipynb</code> and submit with screenshots of graphs.</li>
+    </ol>
+  </div>
+  <h3 class="ai-h">Loading CSV with Pandas</h3>
+  <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+data = pd.<span class="fn">read_csv</span>(<span class="str">"./students.csv"</span>)
+<span class="fn">print</span>(data.<span class="fn">head</span>())
+<span class="fn">print</span>(data.<span class="fn">info</span>())
+<span class="fn">print</span>(data.<span class="fn">describe</span>())<span class="lang">PYTHON</span></pre>
+
+</div>
+</div><!-- /ai-lab1 -->
+
+<!-- ══════════════════════════════════════════════════ -->
+<!--  AI  LAB 2  &mdash;  Linear Regression             -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="ai-lab2" class="tab-content">
+<div class="page">
+
+  <div class="ai-title">Linear Regression</div>
+  <p class="lab-meta">Artificial Intelligence &nbsp;&bull;&nbsp; <span class="ai">Lab #2</span> &nbsp;&bull;&nbsp; Dr. Syed M Hamedoon &nbsp;&bull;&nbsp; UOL</p>
+
+  <div class="note ai">
+    <span class="note-label">Linear Regression</span>
+    A supervised learning algorithm that models the relationship between a <strong>dependent variable (y)</strong> and one or more <strong>independent variables (X)</strong> by fitting a straight line. Equation: <strong>y = mx + c</strong> (intercept + coefficient &times; feature). Used to predict continuous numerical values.
+  </div>
+  <div class="note ai">
+    <span class="note-label">Evaluation Metrics</span>
+    <strong>MAE</strong> (Mean Absolute Error) &mdash; average absolute difference between actual and predicted. &nbsp;
+    <strong>MSE</strong> (Mean Squared Error) &mdash; average squared difference. &nbsp;
+    <strong>RMSE</strong> (Root MSE) &mdash; square root of MSE, same units as output. &nbsp;
+    <strong>R&sup2; Score</strong> &mdash; proportion of variance explained by the model (1 = perfect fit).
+  </div>
+
+  <!-- Problem 1 -->
+  <h2><span class="h-tag ai">01</span> Problem 1 &mdash; Salary Prediction from Experience</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th class="ai">Experience (yrs)</th><th class="ai">Salary (k)</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>30</td></tr><tr><td>2</td><td>35</td></tr><tr><td>3</td><td>40</td></tr><tr><td>4</td><td>45</td></tr><tr><td>5</td><td>50</td></tr>
+        <tr><td>6</td><td>55</td></tr><tr><td>7</td><td>60</td></tr><tr><td>8</td><td>65</td></tr><tr><td>9</td><td>70</td></tr><tr><td>10</td><td>75</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Objective:</strong> Build a Linear Regression model to predict salary based on years of experience.</p>
+  <h3 class="ai-h">Step 1 &mdash; Create Dataset</h3>
+  <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+data = {
+    <span class="str">'Experience'</span>: [<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>,<span class="num">4</span>,<span class="num">5</span>,<span class="num">6</span>,<span class="num">7</span>,<span class="num">8</span>,<span class="num">9</span>,<span class="num">10</span>],
+    <span class="str">'Salary'</span>: [<span class="num">30</span>,<span class="num">35</span>,<span class="num">40</span>,<span class="num">45</span>,<span class="num">50</span>,<span class="num">55</span>,<span class="num">60</span>,<span class="num">65</span>,<span class="num">70</span>,<span class="num">75</span>]
+}
+df = pd.<span class="type">DataFrame</span>(data)
+<span class="fn">print</span>(df)<span class="lang">PYTHON</span></pre>
+  <h3 class="ai-h">Step 2 &mdash; Define X and Y</h3>
+  <pre>X = df[[<span class="str">'Experience'</span>]]  <span class="cmt"># Independent variable</span>
+y = df[<span class="str">'Salary'</span>]           <span class="cmt"># Dependent variable</span><span class="lang">PYTHON</span></pre>
+  <h3 class="ai-h">Step 3 &mdash; Split the Dataset</h3>
+  <pre><span class="kw">from</span> sklearn.model_selection <span class="kw">import</span> train_test_split
+
+X_train, X_test, y_train, y_test = <span class="fn">train_test_split</span>(
+    X, y, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>
+)<span class="lang">PYTHON</span></pre>
+  <h3 class="ai-h">Step 4 &mdash; Train the Model</h3>
+  <pre><span class="kw">from</span> sklearn.linear_model <span class="kw">import</span> LinearRegression
+
+model = <span class="type">LinearRegression</span>()
+model.<span class="fn">fit</span>(X_train, y_train)<span class="lang">PYTHON</span></pre>
+  <h3 class="ai-h">Step 5 &mdash; Display Equation</h3>
+  <pre><span class="fn">print</span>(<span class="str">"Intercept:"</span>, model.intercept_)
+<span class="fn">print</span>(<span class="str">"Coefficient:"</span>, model.coef_[<span class="num">0</span>])<span class="lang">PYTHON</span></pre>
+  <h3 class="ai-h">Step 6 &mdash; Predict Salary (7 years experience)</h3>
+  <pre>prediction = model.<span class="fn">predict</span>([[<span class="num">7</span>]])
+<span class="fn">print</span>(<span class="str">"Predicted Salary:"</span>, prediction[<span class="num">0</span>])<span class="lang">PYTHON</span></pre>
+  <h3 class="ai-h">Step 7 &mdash; Evaluate Model</h3>
+  <pre><span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">from</span> sklearn.metrics <span class="kw">import</span> mean_absolute_error, mean_squared_error, r2_score
+
+y_pred = model.<span class="fn">predict</span>(X_test)
+
+<span class="fn">print</span>(<span class="str">"MAE:"</span>,  <span class="fn">mean_absolute_error</span>(y_test, y_pred))
+<span class="fn">print</span>(<span class="str">"MSE:"</span>,  <span class="fn">mean_squared_error</span>(y_test, y_pred))
+<span class="fn">print</span>(<span class="str">"RMSE:"</span>, np.<span class="fn">sqrt</span>(<span class="fn">mean_squared_error</span>(y_test, y_pred)))
+<span class="fn">print</span>(<span class="str">"R2:"</span>,   <span class="fn">r2_score</span>(y_test, y_pred))<span class="lang">PYTHON</span></pre>
+  <h3 class="ai-h">Step 8 &mdash; Plot Regression Line</h3>
+  <pre><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+
+plt.<span class="fn">scatter</span>(X, y)
+plt.<span class="fn">plot</span>(X, model.<span class="fn">predict</span>(X))
+plt.<span class="fn">xlabel</span>(<span class="str">"Years of Experience"</span>)
+plt.<span class="fn">ylabel</span>(<span class="str">"Salary"</span>)
+plt.<span class="fn">title</span>(<span class="str">"Salary Prediction using Linear Regression"</span>)
+plt.<span class="fn">show</span>()<span class="lang">PYTHON</span></pre>
+
+  <!-- Problem 2 -->
+  <h2><span class="h-tag ai">02</span> Problem 2 &mdash; House Price from Area</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th class="ai">Area (sq.ft.)</th><th class="ai">Price (Lakh)</th></tr></thead>
+      <tbody>
+        <tr><td>800</td><td>40</td></tr><tr><td>1000</td><td>50</td></tr><tr><td>1200</td><td>60</td></tr><tr><td>1400</td><td>70</td></tr>
+        <tr><td>1600</td><td>80</td></tr><tr><td>1800</td><td>90</td></tr><tr><td>2000</td><td>100</td></tr><tr><td>2200</td><td>110</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Objective:</strong> Predict the price of a house based on its area.</p>
+  <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">from</span> sklearn.linear_model <span class="kw">import</span> LinearRegression
+
+data = {
+    <span class="str">'Area'</span>: [<span class="num">800</span>,<span class="num">1000</span>,<span class="num">1200</span>,<span class="num">1400</span>,<span class="num">1600</span>,<span class="num">1800</span>,<span class="num">2000</span>,<span class="num">2200</span>],
+    <span class="str">'Price'</span>: [<span class="num">40</span>,<span class="num">50</span>,<span class="num">60</span>,<span class="num">70</span>,<span class="num">80</span>,<span class="num">90</span>,<span class="num">100</span>,<span class="num">110</span>]
+}
+df = pd.<span class="type">DataFrame</span>(data)
+X = df[[<span class="str">'Area'</span>]]
+y = df[<span class="str">'Price'</span>]
+
+model = <span class="type">LinearRegression</span>()
+model.<span class="fn">fit</span>(X, y)
+
+<span class="fn">print</span>(<span class="str">"Intercept:"</span>,   model.intercept_)
+<span class="fn">print</span>(<span class="str">"Coefficient:"</span>, model.coef_[<span class="num">0</span>])
+
+prediction = model.<span class="fn">predict</span>([[<span class="num">1500</span>]])
+<span class="fn">print</span>(<span class="str">"Predicted Price:"</span>, prediction[<span class="num">0</span>], <span class="str">"Lakh"</span>)
+
+plt.<span class="fn">scatter</span>(X, y)
+plt.<span class="fn">plot</span>(X, model.<span class="fn">predict</span>(X))
+plt.<span class="fn">xlabel</span>(<span class="str">"House Area (sq.ft.)"</span>)
+plt.<span class="fn">ylabel</span>(<span class="str">"Price (Lakh)"</span>)
+plt.<span class="fn">title</span>(<span class="str">"House Price Prediction"</span>)
+plt.<span class="fn">show</span>()<span class="lang">PYTHON</span></pre>
+  <div class="note ai"><span class="note-label">Interpretation</span>The coefficient is approximately <strong>0.05</strong>, meaning an increase of 1 sq.ft. is associated with an estimated increase of 0.05 Lakh in price.</div>
+
+  <!-- Problem 3 -->
+  <h2><span class="h-tag ai">03</span> Problem 3 &mdash; Student Marks from Study Hours</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th class="ai">Study Hours</th><th class="ai">Marks</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>42</td></tr><tr><td>2</td><td>45</td></tr><tr><td>3</td><td>51</td></tr><tr><td>4</td><td>58</td></tr><tr><td>5</td><td>62</td></tr>
+        <tr><td>6</td><td>68</td></tr><tr><td>7</td><td>72</td></tr><tr><td>8</td><td>78</td></tr><tr><td>9</td><td>85</td></tr><tr><td>10</td><td>88</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Objective:</strong> Predict final examination marks based on study hours.</p>
+  <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd, numpy <span class="kw">as</span> np, matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">from</span> sklearn.linear_model <span class="kw">import</span> LinearRegression
+<span class="kw">from</span> sklearn.metrics <span class="kw">import</span> mean_absolute_error, mean_squared_error, r2_score
+
+data = {
+    <span class="str">'StudyHours'</span>: [<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>,<span class="num">4</span>,<span class="num">5</span>,<span class="num">6</span>,<span class="num">7</span>,<span class="num">8</span>,<span class="num">9</span>,<span class="num">10</span>],
+    <span class="str">'Marks'</span>:      [<span class="num">42</span>,<span class="num">45</span>,<span class="num">51</span>,<span class="num">58</span>,<span class="num">62</span>,<span class="num">68</span>,<span class="num">72</span>,<span class="num">78</span>,<span class="num">85</span>,<span class="num">88</span>]
+}
+df = pd.<span class="type">DataFrame</span>(data)
+X = df[[<span class="str">'StudyHours'</span>]]
+y = df[<span class="str">'Marks'</span>]
+
+model = <span class="type">LinearRegression</span>()
+model.<span class="fn">fit</span>(X, y)
+<span class="fn">print</span>(<span class="str">"Intercept:"</span>, model.intercept_, <span class="str">"Coefficient:"</span>, model.coef_[<span class="num">0</span>])
+
+<span class="cmt"># Predict marks for 7.5 hours study</span>
+<span class="fn">print</span>(<span class="str">"Predicted Marks:"</span>, model.<span class="fn">predict</span>([[<span class="num">7.5</span>]])[<span class="num">0</span>])
+
+<span class="cmt"># Evaluate</span>
+y_pred = model.<span class="fn">predict</span>(X)
+<span class="fn">print</span>(<span class="str">"MAE:"</span>,  <span class="fn">mean_absolute_error</span>(y, y_pred))
+<span class="fn">print</span>(<span class="str">"MSE:"</span>,  <span class="fn">mean_squared_error</span>(y, y_pred))
+<span class="fn">print</span>(<span class="str">"RMSE:"</span>, np.<span class="fn">sqrt</span>(<span class="fn">mean_squared_error</span>(y, y_pred)))
+<span class="fn">print</span>(<span class="str">"R2:"</span>,   <span class="fn">r2_score</span>(y, y_pred))
+
+plt.<span class="fn">scatter</span>(X, y)
+plt.<span class="fn">plot</span>(X, y_pred)
+plt.<span class="fn">xlabel</span>(<span class="str">"Study Hours"</span>); plt.<span class="fn">ylabel</span>(<span class="str">"Marks"</span>)
+plt.<span class="fn">title</span>(<span class="str">"Student Marks Prediction"</span>); plt.<span class="fn">show</span>()<span class="lang">PYTHON</span></pre>
+
+  <!-- Problem 4 -->
+  <h2><span class="h-tag ai">04</span> Problem 4 &mdash; Electricity Consumption from Temperature</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th class="ai">Temperature (&deg;C)</th><th class="ai">Consumption (kWh)</th></tr></thead>
+      <tbody>
+        <tr><td>20</td><td>100</td></tr><tr><td>22</td><td>108</td></tr><tr><td>24</td><td>115</td></tr><tr><td>26</td><td>125</td></tr><tr><td>28</td><td>132</td></tr>
+        <tr><td>30</td><td>140</td></tr><tr><td>32</td><td>148</td></tr><tr><td>34</td><td>157</td></tr><tr><td>36</td><td>165</td></tr><tr><td>38</td><td>174</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Objective:</strong> Predict electricity consumption based on temperature. Useful for AI/IoT-based data mining.</p>
+  <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd, numpy <span class="kw">as</span> np, matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">from</span> sklearn.linear_model <span class="kw">import</span> LinearRegression
+<span class="kw">from</span> sklearn.metrics <span class="kw">import</span> mean_absolute_error, mean_squared_error, r2_score
+
+data = {
+    <span class="str">'Temperature'</span>:  [<span class="num">20</span>,<span class="num">22</span>,<span class="num">24</span>,<span class="num">26</span>,<span class="num">28</span>,<span class="num">30</span>,<span class="num">32</span>,<span class="num">34</span>,<span class="num">36</span>,<span class="num">38</span>],
+    <span class="str">'Consumption'</span>: [<span class="num">100</span>,<span class="num">108</span>,<span class="num">115</span>,<span class="num">125</span>,<span class="num">132</span>,<span class="num">140</span>,<span class="num">148</span>,<span class="num">157</span>,<span class="num">165</span>,<span class="num">174</span>]
+}
+df = pd.<span class="type">DataFrame</span>(data)
+X = df[[<span class="str">'Temperature'</span>]]; y = df[<span class="str">'Consumption'</span>]
+
+model = <span class="type">LinearRegression</span>()
+model.<span class="fn">fit</span>(X, y)
+
+<span class="fn">print</span>(<span class="str">"Predicted at 31°C:"</span>, model.<span class="fn">predict</span>([[<span class="num">31</span>]])[<span class="num">0</span>], <span class="str">"kWh"</span>)
+
+y_pred = model.<span class="fn">predict</span>(X)
+<span class="fn">print</span>(<span class="str">"R2 Score:"</span>, <span class="fn">r2_score</span>(y, y_pred))
+
+plt.<span class="fn">scatter</span>(X, y); plt.<span class="fn">plot</span>(X, y_pred)
+plt.<span class="fn">xlabel</span>(<span class="str">"Temperature (°C)"</span>); plt.<span class="fn">ylabel</span>(<span class="str">"Consumption (kWh)"</span>)
+plt.<span class="fn">title</span>(<span class="str">"Electricity Consumption Prediction"</span>); plt.<span class="fn">show</span>()<span class="lang">PYTHON</span></pre>
+
+  <!-- Problem 5 -->
+  <h2><span class="h-tag ai">05</span> Problem 5 &mdash; Sales from Advertising</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th class="ai">TV</th><th class="ai">Social Media</th><th class="ai">Newspaper</th><th class="ai">Sales</th></tr></thead>
+      <tbody>
+        <tr><td>10</td><td>5</td><td>2</td><td>20</td></tr>
+        <tr><td>20</td><td>8</td><td>3</td><td>28</td></tr>
+        <tr><td>30</td><td>10</td><td>5</td><td>35</td></tr>
+        <tr><td>50</td><td>15</td><td>7</td><td>52</td></tr>
+        <tr><td>100</td><td>28</td><td>15</td><td>94</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3 class="ai-h">Part A &mdash; Simple Linear Regression (TV only)</h3>
+  <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd, numpy <span class="kw">as</span> np, matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">from</span> sklearn.linear_model <span class="kw">import</span> LinearRegression
+<span class="kw">from</span> sklearn.metrics <span class="kw">import</span> mean_absolute_error, mean_squared_error, r2_score
+
+data = {
+    <span class="str">'TV'</span>:         [<span class="num">10</span>,<span class="num">20</span>,<span class="num">30</span>,<span class="num">40</span>,<span class="num">50</span>,<span class="num">60</span>,<span class="num">70</span>,<span class="num">80</span>,<span class="num">90</span>,<span class="num">100</span>],
+    <span class="str">'SocialMedia'</span>:[<span class="num">5</span>,<span class="num">8</span>,<span class="num">10</span>,<span class="num">12</span>,<span class="num">15</span>,<span class="num">18</span>,<span class="num">20</span>,<span class="num">23</span>,<span class="num">25</span>,<span class="num">28</span>],
+    <span class="str">'Newspaper'</span>: [<span class="num">2</span>,<span class="num">3</span>,<span class="num">5</span>,<span class="num">6</span>,<span class="num">7</span>,<span class="num">9</span>,<span class="num">10</span>,<span class="num">12</span>,<span class="num">14</span>,<span class="num">15</span>],
+    <span class="str">'Sales'</span>:     [<span class="num">20</span>,<span class="num">28</span>,<span class="num">35</span>,<span class="num">43</span>,<span class="num">52</span>,<span class="num">60</span>,<span class="num">68</span>,<span class="num">77</span>,<span class="num">85</span>,<span class="num">94</span>]
+}
+df = pd.<span class="type">DataFrame</span>(data)
+
+<span class="cmt"># Simple regression using TV only</span>
+X = df[[<span class="str">'TV'</span>]]; y = df[<span class="str">'Sales'</span>]
+model = <span class="type">LinearRegression</span>()
+model.<span class="fn">fit</span>(X, y)
+<span class="fn">print</span>(<span class="str">"Predicted Sales for TV=75:"</span>, model.<span class="fn">predict</span>([[<span class="num">75</span>]])[<span class="num">0</span>])
+<span class="fn">print</span>(<span class="str">"R2:"</span>, <span class="fn">r2_score</span>(y, model.<span class="fn">predict</span>(X)))
+
+plt.<span class="fn">scatter</span>(X, y); plt.<span class="fn">plot</span>(X, model.<span class="fn">predict</span>(X))
+plt.<span class="fn">xlabel</span>(<span class="str">"TV Advertising"</span>); plt.<span class="fn">ylabel</span>(<span class="str">"Sales"</span>)
+plt.<span class="fn">title</span>(<span class="str">"Sales Prediction"</span>); plt.<span class="fn">show</span>()<span class="lang">PYTHON</span></pre>
+  <h3 class="ai-h">Part B &mdash; Multiple Linear Regression (TV + Social Media + Newspaper)</h3>
+  <pre><span class="cmt"># Use all three advertising variables</span>
+X = df[[<span class="str">'TV'</span>, <span class="str">'SocialMedia'</span>, <span class="str">'Newspaper'</span>]]
+y = df[<span class="str">'Sales'</span>]
+model = <span class="type">LinearRegression</span>()
+model.<span class="fn">fit</span>(X, y)
+<span class="fn">print</span>(<span class="str">"Intercept:"</span>, model.intercept_)
+<span class="fn">print</span>(<span class="str">"Coefficients:"</span>, model.coef_)
+<span class="fn">print</span>(<span class="str">"Predicted:"</span>, model.<span class="fn">predict</span>([[<span class="num">75</span>, <span class="num">21</span>, <span class="num">11</span>]])[<span class="num">0</span>])<span class="lang">PYTHON</span></pre>
+
+  <!-- Lab Tasks -->
+  <h2><span class="h-tag ai">06</span> Lab Tasks</h2>
+  <div class="practice">
+    <div class="practice-title">Lab Tasks 1&ndash;5</div>
+    <ol>
+      <li><strong>Task 1 &mdash; Employee Salary:</strong> Dataset of 15+ employees (Experience, Age, Salary). Use Experience to predict Salary. Display intercept &amp; coefficient. Predict salary for 6 years experience. Compute MAE, MSE, RMSE, R&sup2;. Plot regression line.</li>
+      <li><strong>Task 2 &mdash; House Price:</strong> Dataset of 15+ houses (Area, Bedrooms, Age, Price). Plot Area vs Price. Build simple regression using Area, predict 2000 sq.ft. price. Extend to multiple regression using all three features. Compare metrics.</li>
+      <li><strong>Task 3 &mdash; Student Performance:</strong> Dataset of 20+ students (Study Hours, Attendance %, Assignment Marks, Final Marks). Build simple regression with Study Hours. Predict marks for 8-hour student. Build multiple regression using all three inputs. Compare metrics.</li>
+      <li><strong>Task 4 &mdash; Smart Home Electricity:</strong> Dataset of 30+ daily observations (Temperature, Humidity, Appliances, Previous Consumption, Current Consumption). Check for missing values. Build regression model. Identify variables with largest coefficients. Explain how this could be used in a smart home energy management system.</li>
+      <li><strong>Task 5 &mdash; Advertising Sales:</strong> Part A: Simple regression using TV advertising. Part B: Multiple regression using TV + Social Media + Newspaper. Compare both models. Bonus: Does adding more variables always improve the model?</li>
+    </ol>
+  </div>
+
+</div>
+</div><!-- /ai-lab2 -->
+
+<!-- ══════════════════════════════════════════════════ -->
+<!--  AI  LAB 3  &mdash;  Multiple &amp; Logistic       -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="ai-lab3" class="tab-content">
+<div class="page">
+
+  <div class="ai-title">Multiple &amp; Logistic Regression</div>
+  <p class="lab-meta">Artificial Intelligence &nbsp;&bull;&nbsp; <span class="ai">Lab #3</span> &nbsp;&bull;&nbsp; Dr. Syed M Hamedoon &nbsp;&bull;&nbsp; UOL</p>
+
+  <h2><span class="h-tag ai">01</span> Introduction to Regression Techniques</h2>
+  <div class="cmp-grid">
+    <div class="cmp-card blue">
+      <h4>Multiple Linear Regression</h4>
+      <ul>
+        <li>Dependent (output) variable is <strong>continuous</strong></li>
+        <li>Depends on <strong>two or more</strong> independent (input) variables</li>
+        <li>Models how changes in multiple features affect a numerical outcome</li>
+        <li>Example: predicting house prices from area, rooms, and location</li>
+      </ul>
+    </div>
+    <div class="cmp-card ai">
+      <h4>Logistic Regression</h4>
+      <ul>
+        <li>Used for <strong>classification</strong> problems</li>
+        <li>Dependent variable is <strong>categorical / binary</strong> (Yes/No, 0/1)</li>
+        <li>Estimates the probability that an input belongs to a class</li>
+        <li>Applications: disease prediction, spam detection, customer churn</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2><span class="h-tag ai">02</span> Example 1 &mdash; Multiple Linear Regression: Marks Prediction</h2>
+  <p>Dataset: Study Hours + Attendance &rarr; Predict Final Marks.</p>
+  <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">from</span> sklearn.linear_model <span class="kw">import</span> LinearRegression
+
+data = {
+    <span class="str">'Study_Hours'</span>: [<span class="num">2</span>, <span class="num">4</span>, <span class="num">6</span>, <span class="num">8</span>, <span class="num">10</span>],
+    <span class="str">'Attendance'</span>:  [<span class="num">60</span>, <span class="num">70</span>, <span class="num">80</span>, <span class="num">90</span>, <span class="num">95</span>],
+    <span class="str">'Marks'</span>:       [<span class="num">50</span>, <span class="num">60</span>, <span class="num">70</span>, <span class="num">85</span>, <span class="num">90</span>]
+}
+df = pd.<span class="type">DataFrame</span>(data)
+
+X = df[[<span class="str">'Study_Hours'</span>, <span class="str">'Attendance'</span>]]
+y = df[<span class="str">'Marks'</span>]
+
+model = <span class="type">LinearRegression</span>()
+model.<span class="fn">fit</span>(X, y)
+
+prediction = model.<span class="fn">predict</span>([[<span class="num">7</span>, <span class="num">85</span>]])
+<span class="fn">print</span>(<span class="str">"Predicted Marks:"</span>, prediction[<span class="num">0</span>])<span class="lang">PYTHON</span></pre>
+
+  <h2><span class="h-tag ai">03</span> Example 2 &mdash; Multiple Linear Regression: House Price</h2>
+  <p>Dataset: Area + Bedrooms &rarr; Predict House Price.</p>
+  <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">from</span> sklearn.linear_model <span class="kw">import</span> LinearRegression
+
+data = {
+    <span class="str">'Area'</span>:     [<span class="num">800</span>, <span class="num">1000</span>, <span class="num">1200</span>, <span class="num">1500</span>, <span class="num">1800</span>],
+    <span class="str">'Bedrooms'</span>: [<span class="num">1</span>, <span class="num">2</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">3</span>],
+    <span class="str">'Price'</span>:    [<span class="num">50000</span>, <span class="num">65000</span>, <span class="num">75000</span>, <span class="num">90000</span>, <span class="num">110000</span>]
+}
+df = pd.<span class="type">DataFrame</span>(data)
+
+X = df[[<span class="str">'Area'</span>, <span class="str">'Bedrooms'</span>]]
+y = df[<span class="str">'Price'</span>]
+
+model = <span class="type">LinearRegression</span>()
+model.<span class="fn">fit</span>(X, y)
+
+predicted_price = model.<span class="fn">predict</span>([[<span class="num">1400</span>, <span class="num">3</span>]])
+<span class="fn">print</span>(<span class="str">"Predicted House Price:"</span>, predicted_price[<span class="num">0</span>])<span class="lang">PYTHON</span></pre>
+
+  <h2><span class="h-tag ai">04</span> Example 3 &mdash; Logistic Regression: Pass / Fail Classification</h2>
+  <p>Dataset: Study Hours + Attendance &rarr; Predict Pass (1) or Fail (0).</p>
+  <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">from</span> sklearn.linear_model <span class="kw">import</span> LogisticRegression
+
+data = {
+    <span class="str">'Study_Hours'</span>: [<span class="num">1</span>, <span class="num">2</span>, <span class="num">4</span>, <span class="num">6</span>, <span class="num">8</span>, <span class="num">10</span>],
+    <span class="str">'Attendance'</span>:  [<span class="num">50</span>, <span class="num">55</span>, <span class="num">65</span>, <span class="num">75</span>, <span class="num">85</span>, <span class="num">95</span>],
+    <span class="str">'Result'</span>:      [<span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">1</span>]  <span class="cmt"># 0=Fail, 1=Pass</span>
+}
+df = pd.<span class="type">DataFrame</span>(data)
+
+X = df[[<span class="str">'Study_Hours'</span>, <span class="str">'Attendance'</span>]]
+y = df[<span class="str">'Result'</span>]
+
+model = <span class="type">LogisticRegression</span>()
+model.<span class="fn">fit</span>(X, y)
+
+result = model.<span class="fn">predict</span>([[<span class="num">5</span>, <span class="num">70</span>]])
+<span class="fn">print</span>(<span class="str">"Predicted Result (1=Pass, 0=Fail):"</span>, result[<span class="num">0</span>])<span class="lang">PYTHON</span></pre>
+
+  <h2><span class="h-tag ai">05</span> Lab Assignment No. 2</h2>
+  <div class="practice">
+    <div class="practice-title">Lab Practice Questions</div>
+    <ol>
+      <li><strong>Q1 &mdash; Multiple Linear: House Price</strong><br>Dataset: Size (sqft), Bedrooms, Age of House &rarr; House Price. Fit model, predict (Size=2000, Bedrooms=3, Age=10), print and interpret coefficients.</li>
+      <li><strong>Q2 &mdash; Multiple Linear: Student Performance</strong><br>Dataset: Hours Study, Hours Sleep, Attendance % &rarr; Exam Marks. Train model. Plot actual vs predicted. Compute R&sup2; and MSE.</li>
+      <li><strong>Q3 &mdash; Logistic: Pass/Fail Classification</strong><br>Dataset: Hours Study, Hours Sleep &rarr; Pass (1) / Fail (0). Predict probability of passing for 30 study hours, 6 sleep hours. Plot decision boundary.</li>
+      <li><strong>Q4 &mdash; Logistic: Diabetes Prediction</strong><br>Dataset: BMI, Age, Glucose Level &rarr; Diabetic (1) or Not (0). Find accuracy, precision, recall. Predict for patient (BMI=28, Age=45, Glucose=150).</li>
+      <li><strong>Q5 &mdash; Comparison: Linear vs Logistic</strong><br>Dataset: Hours Study, Exam Score, Pass/Fail. Use Linear Regression to predict exam scores. Use Logistic Regression to predict pass/fail. Compare results &mdash; explain why linear regression is unsuitable for classification.</li>
+    </ol>
+  </div>
+
+  <div class="note ai">
+    <span class="note-label">Implementation Notes</span>
+    <ul>
+      <li>Use <code>pandas</code> to load CSVs or create toy datasets directly in code.</li>
+      <li>Use <code>sklearn.linear_model.LinearRegression</code> and <code>LogisticRegression</code>.</li>
+      <li>Plot with <code>matplotlib</code>.</li>
+      <li>Always interpret coefficients in both models to understand feature importance.</li>
+    </ul>
+  </div>
+
+</div>
+</div><!-- /ai-lab3 -->
+
 <script>
+function switchSubject(subject, btn) {
+  document.querySelectorAll('.sub-tabs').forEach(t => t.style.display = 'none');
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const tabs = document.getElementById(subject + '-tabs');
+  tabs.style.display = 'flex';
+  tabs.querySelector('.tab-btn').click();
+}
+
 function switchTab(id, btn) {
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.closest('.sub-tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
+  window.scrollTo({top: 0, behavior: 'smooth'});
 }
 </script>
 </body>
